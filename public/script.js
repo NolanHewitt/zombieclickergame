@@ -1,14 +1,17 @@
 let value = 0;
 let increaser = 10;
 let ammo = 8;
+let fullmag = true;
 let reloading = false;
 let autoreload = false;
+let electricreload = false;
 
 document.getElementById('click').onclick = function() {
 
 if (ammo > 1){
     ammo = ammo-1;
     value=value+increaser;
+    fullmag=false;
     document.getElementById('value').innerHTML = "Money: $" + value;
     document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
     console.log("Value: " + value);
@@ -47,13 +50,20 @@ if (ammo > 1){
     if (autoreload === true){
     ammo = -1
 
+    if (electricreload === true){
+        value = value + 50;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+    }
+
     setTimeout(function(){ 
         ammo = 8;
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+        fullmag=true;
          }, 2700);
 
     var audio3 = document.getElementById("audio3");
         audio3.play();
+
         }
   }
   else if (ammo === 0) {
@@ -68,20 +78,23 @@ if (ammo > 1){
 };
 
 document.getElementById('reload').onclick = function() {
-    ammo = -1;
-
-    if (reloading === false){
+    if (reloading === false && fullmag === false){
+        ammo = -1;
+        reloading = true;
+        if (electricreload === true){
+            value = value + 50;
+            document.getElementById('value').innerHTML = "Money: $" + value;
+        };
     setTimeout(function(){ 
         ammo = 8;
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         reloading = false;
+        fullmag=true;
          }, 2700);
-    };
 
-    reloading = true;
-
-    var audio3 = document.getElementById("audio3");
+         var audio3 = document.getElementById("audio3");
         audio3.play();
+    };
 }
 
 document.getElementById('firstupgrade').onclick = function() {
@@ -101,6 +114,15 @@ document.getElementById('secondupgrade').onclick = function() {
     autoreload = true;
     document.getElementById("secondupgrade").style.display = "none";
     value = value-1000;
+    document.getElementById('value').innerHTML = "Money: $" + value;
+    }
+};
+
+document.getElementById('thirdupgrade').onclick = function() {
+    if (value >= 500){
+    electricreload = true;
+    document.getElementById("thirdupgrade").style.display = "none";
+    value = value-500;
     document.getElementById('value').innerHTML = "Money: $" + value;
     }
 };

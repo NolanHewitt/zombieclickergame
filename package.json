@@ -1,0 +1,19 @@
+{
+  "name": "zombieclicker",
+  "version": "1.0.0",
+  "description": "zombie clicker game",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "zombie",
+    "clicker",
+    "game"
+  ],
+  "author": "Nolan Hewitt",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

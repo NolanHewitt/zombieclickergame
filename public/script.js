@@ -1,4 +1,4 @@
-let value = 0;
+let value = 1000000;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
@@ -242,7 +242,7 @@ document.getElementById('buygun').onclick = function() {
         ammo = 8;
         magazine = 8;
         gunlevel = 4;
-        document.getElementById('buygun').innerHTML = "Buy MORS" +  "<br />" + "5000$";
+        document.getElementById('buygun').innerHTML = "Buy 1887" +  "<br />" + "3000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
@@ -253,17 +253,119 @@ document.getElementById('buygun').onclick = function() {
         }
   }
   else if (gunlevel === 4){
-    if (value >= 5000){
-        value = value-5000;
-        increaser = increaser+120;
+    if (value >= 3000){
+        value = value-3000;
+        increaser = increaser+20;
+        ammo = 7;
+        magazine = 7;
+        gunlevel = 5;
+        document.getElementById('buygun').innerHTML = "Buy MORS" +  "<br />" + "6000$";
+        document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
+        document.getElementById("gun").src="../public/images/1887.png";
+        document.getElementById("gun").style.marginLeft="25%";
+        document.getElementById("audio").src="../public/sounds/spas.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        }
+  }
+  else if (gunlevel === 5){
+    if (value >= 6000){
+        value = value-6000;
+        increaser = increaser+600;
         ammo = 1;
         magazine = 1;
-        gunlevel = 5;
-        document.getElementById('buygun').innerHTML = "Buy Barrett" +  "<br />" + "9001$";
+        gunlevel = 6;
+        document.getElementById('buygun').innerHTML = "Buy Barrett" +  "<br />" + "9010$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
         document.getElementById("gun").src="../public/images/mors.png";
+        document.getElementById("gun").style.marginLeft="25%";
+        document.getElementById("audio").src="../public/sounds/spas.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        }
+  }
+  else if (gunlevel === 6){
+    if (value >= 9010){
+        value = value-9010;
+        increaser = increaser-200;
+        ammo = 5;
+        magazine = 5;
+        gunlevel = 7;
+        document.getElementById('buygun').innerHTML = "Buy Ray-Gun" +  "<br />" + "20000$";
+        document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
+        document.getElementById("gun").src="../public/images/barrett.png";
+        document.getElementById("gun").style.marginLeft="-65%";
+        document.getElementById("audio").src="../public/sounds/spas.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        }
+  }
+  else if (gunlevel === 7){
+    if (value >= 20000){
+        value = value-20000;
+        increaser = increaser+0;
+        ammo = 20;
+        magazine = 20;
+        gunlevel = 8;
+        document.getElementById('buygun').innerHTML = "Upgrade Ray-Gun" +  "<br />" + "5000$";
+        document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
+        document.getElementById("gun").src="../public/images/raygun.png";
+        document.getElementById("gun").style.marginLeft="25%";
+        document.getElementById("audio").src="../public/sounds/spas.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        }
+  }
+  else if (gunlevel === 8){
+    if (value >= 5000){
+        value = value-5000;
+        increaser = increaser+100;
+        ammo = 40;
+        magazine = 40;
+        gunlevel = 9;
+        document.getElementById('buygun').innerHTML = "Buy Thundergun" +  "<br />" + "50000$";
+        document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
+        document.getElementById("gun").src="../public/images/raygunpack.png";
+        document.getElementById("gun").style.marginLeft="25%";
+        document.getElementById("audio").src="../public/sounds/spas.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        }
+  }
+  else if (gunlevel === 9){
+    if (value >= 50000){
+        value = value-50000;
+        increaser = increaser+2400;
+        ammo = 2;
+        magazine = 2;
+        gunlevel = 10;
+        document.getElementById('buygun').innerHTML = "Upgrade Thundergun" +  "<br />" + "5000$";
+        document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
+        document.getElementById("gun").src="../public/images/thundergun.png";
+        document.getElementById("gun").style.marginLeft="25%";
+        document.getElementById("audio").src="../public/sounds/spas.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        }
+  }
+  else if (gunlevel === 10){
+    if (value >= 5000){
+        value = value-5000;
+        increaser = increaser+2000;
+        ammo = 4;
+        magazine = 4;
+        gunlevel = 11;
+        document.getElementById('buygun').innerHTML = "???" +  "<br />" + "1000000$";
+        document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
+        document.getElementById("gun").src="../public/images/thundergunpack.png";
         document.getElementById("gun").style.marginLeft="25%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
         document.getElementById("audio3").src="../public/sounds/spasreload.mp3";

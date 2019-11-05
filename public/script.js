@@ -1,4 +1,4 @@
-let value = 10000;
+let value = 0;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
@@ -247,6 +247,23 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
         document.getElementById("gun").src="../public/images/spas.png";
+        document.getElementById("gun").style.marginLeft="25%";
+        document.getElementById("audio").src="../public/sounds/spas.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        }
+  }
+  else if (gunlevel === 4){
+    if (value >= 5000){
+        value = value-5000;
+        increaser = increaser+120;
+        ammo = 1;
+        magazine = 1;
+        gunlevel = 5;
+        document.getElementById('buygun').innerHTML = "Buy Barrett" +  "<br />" + "9001$";
+        document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
+        document.getElementById("gun").src="../public/images/mors.png";
         document.getElementById("gun").style.marginLeft="25%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
         document.getElementById("audio3").src="../public/sounds/spasreload.mp3";

@@ -1,10 +1,13 @@
-let value = 0;
+let value = 10000;
 let increaser = 10;
 let ammo = 8;
+let magazine = 8;
+let gunlevel = 1;
 let fullmag = true;
 let reloading = false;
 let autoreload = false;
 let electricreload = false;
+let speedreload = false;
 
 document.getElementById('click').onclick = function() {
 
@@ -31,6 +34,7 @@ if (ammo > 1){
   else if (ammo === 1){
     ammo = ammo-1;
     value=value+increaser;
+    fullmag=false;
     document.getElementById('value').innerHTML = "Money: $" + value;
     document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
     console.log("Value: " + value);
@@ -47,8 +51,10 @@ if (ammo > 1){
         audio.play();
     }
 
+  if (speedreload === false){
     if (autoreload === true){
-    ammo = -1
+    ammo = -1;
+    reloading = true;
 
     if (electricreload === true){
         value = value + 50;
@@ -56,16 +62,46 @@ if (ammo > 1){
     }
 
     setTimeout(function(){ 
-        ammo = 8;
+        ammo = magazine;
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         fullmag=true;
+        reloading = false;
          }, 2700);
 
     var audio3 = document.getElementById("audio3");
         audio3.play();
-
+        if (audio3.currentTime > 0) {
+            audio3.currentTime = 0
+            audio3.play();
         }
+    }
   }
+  if (speedreload === true){
+    if (autoreload === true){
+    ammo = -1;
+    reloading = true;
+
+    if (electricreload === true){
+        value = value + 50;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+    }
+
+    setTimeout(function(){ 
+        ammo = magazine;
+        document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+        fullmag=true;
+        reloading = false;
+         }, 1250);
+
+    var audio3 = document.getElementById("audio3");
+        audio3.play();
+        if (audio3.currentTime > 0) {
+            audio3.currentTime = 0
+            audio3.play();
+        }
+    }
+  }
+ }
   else if (ammo === 0) {
     var audio2 = document.getElementById("audio2");
         audio2.play();
@@ -78,6 +114,7 @@ if (ammo > 1){
 };
 
 document.getElementById('reload').onclick = function() {
+  if (speedreload === false){
     if (reloading === false && fullmag === false){
         ammo = -1;
         reloading = true;
@@ -86,15 +123,43 @@ document.getElementById('reload').onclick = function() {
             document.getElementById('value').innerHTML = "Money: $" + value;
         };
     setTimeout(function(){ 
-        ammo = 8;
+        ammo = magazine;
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         reloading = false;
         fullmag=true;
-         }, 2700);
+         }, 2500);
 
          var audio3 = document.getElementById("audio3");
-        audio3.play();
+          audio3.play();
+          if (audio3.currentTime > 0) {
+              audio3.currentTime = 0
+              audio3.play();
+          }
     };
+  }
+  else if (speedreload === true){
+    if (reloading === false && fullmag === false){
+        ammo = -1;
+        reloading = true;
+        if (electricreload === true){
+            value = value + 50;
+            document.getElementById('value').innerHTML = "Money: $" + value;
+        };
+    setTimeout(function(){ 
+        ammo = magazine;
+        document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+        reloading = false;
+        fullmag=true;
+         }, 1000);
+
+         var audio3 = document.getElementById("audio3");
+          audio3.play();
+          if (audio3.currentTime > 0) {
+              audio3.currentTime = 0
+              audio3.play();
+          }
+    };
+  }
 }
 
 document.getElementById('firstupgrade').onclick = function() {
@@ -102,6 +167,7 @@ document.getElementById('firstupgrade').onclick = function() {
     document.getElementById('increaser').innerHTML = increaser;
     increaser = increaser+10;
     document.getElementById("firstupgrade").style.display = "none";
+    document.getElementById("buygun").style.display = "block";
     console.log("Increase: " + increaser);
     value = value-200;
     document.getElementById('value').innerHTML = "Money: $" + value;
@@ -110,10 +176,10 @@ document.getElementById('firstupgrade').onclick = function() {
 };
 
 document.getElementById('secondupgrade').onclick = function() {
-    if (value >= 1000){
+    if (value >= 10000){
     autoreload = true;
     document.getElementById("secondupgrade").style.display = "none";
-    value = value-1000;
+    value = value-10000;
     document.getElementById('value').innerHTML = "Money: $" + value;
     }
 };
@@ -125,4 +191,65 @@ document.getElementById('thirdupgrade').onclick = function() {
     value = value-500;
     document.getElementById('value').innerHTML = "Money: $" + value;
     }
+};
+
+document.getElementById('fourthupgrade').onclick = function() {
+    if (value >= 1500){
+    speedreload = true;
+    document.getElementById("fourthupgrade").style.display = "none";
+    value = value-1500;
+    document.getElementById('value').innerHTML = "Money: $" + value;
+    }
+};
+
+document.getElementById('buygun').onclick = function() {
+  if (gunlevel === 1){
+    if (value >= 750){
+    value = value-750;
+    increaser = increaser+20;
+    ammo = 6;
+    magazine = 6;
+    gunlevel = 2;
+    document.getElementById('buygun').innerHTML = "Buy RW1" +  "<br />" + "1250$";
+    document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+    document.getElementById('value').innerHTML = "Money: $" + value;
+    document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
+    document.getElementById("gun").src="../public/images/revolver.png";
+    document.getElementById("gun").style.marginLeft="75%";
+    document.getElementById("audio").src="../public/sounds/revolver.mp3";
+    }
+  }
+  else if (gunlevel === 2){
+    if (value >= 1250){
+        value = value-1250;
+        increaser = increaser+80;
+        ammo = 1;
+        magazine = 1;
+        gunlevel = 3;
+        document.getElementById('buygun').innerHTML = "Buy Spas12" +  "<br />" + "2000$";
+        document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
+        document.getElementById("gun").src="../public/images/rw1.png";
+        document.getElementById("gun").style.marginLeft="75%";
+        document.getElementById("audio").src="../public/sounds/revolver.mp3";
+        }
+  }
+  else if (gunlevel === 3){
+    if (value >= 2000){
+        value = value-2000;
+        increaser = increaser-40;
+        ammo = 8;
+        magazine = 8;
+        gunlevel = 4;
+        document.getElementById('buygun').innerHTML = "Buy MORS" +  "<br />" + "5000$";
+        document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
+        document.getElementById("gun").src="../public/images/spas.png";
+        document.getElementById("gun").style.marginLeft="25%";
+        document.getElementById("audio").src="../public/sounds/spas.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        }
+  }
 };

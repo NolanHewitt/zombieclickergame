@@ -24,7 +24,7 @@
 
 #reload {
     position:absolute;
-    margin-top: 45%;
+    margin-top: 37.5%;
     margin-left: 75%;
     font-size: 35px;
     z-index: 1;
@@ -57,13 +57,14 @@
   margin-left: 2%;
   margin-top: 0%;
   position: absolute;
+  z-index: 1;
 }
 
 #secondupgrade {
     display:block;
     width: 5%, 10%;
     border: 1px solid rebeccapurple;
-    margin-left: 14%;
+    margin-left: 20%;
     margin-top: 0%;
     position: absolute;
   }
@@ -75,6 +76,25 @@
     margin-left: 7.5%;
     margin-top: 0%;
     position: absolute;
+  }
+
+  #fourthupgrade {
+    display:block;
+    width: 5%, 10%;
+    border: 1px solid green;
+    margin-left: 13.9%;
+    margin-top: 0%;
+    position: absolute;
+  }
+
+  #buygun {
+    display:none;
+  width: 5%, 10%;
+  border: 1px solid blue;
+  margin-left: 2%;
+  margin-top: 0%;
+  position: absolute;
+  z-index: 0;
   }
 
 #hudwrapper {

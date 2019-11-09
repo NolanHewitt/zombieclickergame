@@ -3,14 +3,65 @@ let increaser = 10;
 let ammo = 8;
 let magazine = 8;
 let gunlevel = 1;
+let health = 100;
+let maxhealth = 100;
 let fullmag = true;
 let reloading = false;
 let autoreload = false;
 let electricreload = false;
 let speedreload = false;
+let juggernaut = false;
+
+let oldhealth = setInterval(
+    function(){
+        if (health < maxhealth){
+            health = health+1;
+            document.getElementById('health').innerHTML = "HP: " + health;
+                            }
+    }, 300);
+
+
+//Health Regenerator
+function regeneration() {
+if (juggernaut === false){
+    oldhealth;
+}
+else if (juggernaut === true){
+    clearInterval(oldhealth);
+    setInterval(
+        function(){
+            if (health < maxhealth){
+                health = health+1;
+                document.getElementById('health').innerHTML = "HP: " + health;
+                                }
+        }, 210);
+    }
+};
+regeneration();
+
+setInterval(function(){
+    if(health<=0){
+       window.location='lose';
+    }
+}, 100);
+
+function removedamagemessage(){
+    setTimeout(function(){
+        document.getElementById('damagetook').style.display = 'none';
+        }, 2000);
+}
 
 document.getElementById('click').onclick = function() {
-
+//Trying to fire the gun causes the zombie to damage you 15% of the time.
+    var d = Math.random();
+    console.log (d);
+if (d < 0.10){
+    health = health-70
+    document.getElementById('health').innerHTML = "HP: " + health;
+    document.getElementById('damagetook').style.display = 'block';
+    removedamagemessage();
+};
+//Shooting mechanics
 if (ammo > 1){
     ammo = ammo-1;
     value=value+increaser;
@@ -202,6 +253,17 @@ document.getElementById('fourthupgrade').onclick = function() {
     }
 };
 
+document.getElementById('fifthupgrade').onclick = function() {
+    if (value >= 5000){
+    juggernaut = true;
+    maxhealth = 150;
+    document.getElementById("fifthupgrade").style.display = "none";
+    value = value-5000;
+    document.getElementById('value').innerHTML = "Money: $" + value;
+    regeneration();
+    }
+};
+
 document.getElementById('buygun').onclick = function() {
   if (gunlevel === 1){
     if (value >= 750){
@@ -345,6 +407,7 @@ document.getElementById('buygun').onclick = function() {
         magazine = 2;
         gunlevel = 10;
         document.getElementById('buygun').innerHTML = "Upgrade Thundergun" +  "<br />" + "5000$";
+        document.getElementById("buygun").style.marginLeft="1%";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
@@ -362,6 +425,7 @@ document.getElementById('buygun').onclick = function() {
         magazine = 4;
         gunlevel = 11;
         document.getElementById('buygun').innerHTML = "???" +  "<br />" + "1000000$";
+        document.getElementById("buygun").style.marginLeft="2.35%";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;

@@ -1,4 +1,4 @@
-let value = 0;
+let value = 1500000;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
@@ -11,6 +11,13 @@ let autoreload = false;
 let electricreload = false;
 let speedreload = false;
 let juggernaut = false;
+let turret = false;
+let turretAuto;
+let turretIncreaser = 50;
+//No lower than 120 for turret fire rate
+let turretFirerate = 600;
+let fireRate = 0;
+let damage = 0;
 
 let oldhealth = setInterval(
     function(){
@@ -212,6 +219,24 @@ document.getElementById('reload').onclick = function() {
     };
   }
 }
+
+function activateTurret() {
+    turretAuto = setInterval(function()
+    {
+        value = value + turretIncreaser;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+
+        document.getElementById('hitmarker').style.display="block";
+
+        setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 100);
+
+        var audio4 = document.getElementById("audio4");
+        audio4.play();
+        if (audio4.currentTime > 0) {
+            audio4.currentTime = 0
+            audio4.play();}
+}, turretFirerate);
+  }
 
 document.getElementById('firstupgrade').onclick = function() {
     if (value >= 200){
@@ -424,8 +449,7 @@ document.getElementById('buygun').onclick = function() {
         ammo = 4;
         magazine = 4;
         gunlevel = 11;
-        document.getElementById('buygun').innerHTML = "???" +  "<br />" + "1000000$";
-        document.getElementById("buygun").style.marginLeft="2.35%";
+        document.getElementById("buygun").style.display="none";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
@@ -434,5 +458,107 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById("audio").src="../public/sounds/spas.mp3";
         document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
         }
-  }
+  };
+};
+
+document.getElementById('turretMenu').onclick = function() {
+
+    if (turret === false){
+        if (value >= 1000000){
+            value = value-1000000;
+            document.getElementById('value').innerHTML = "Money: $" + value;
+            document.getElementById('turretMenu').innerHTML = "Open Turret Upgrades";
+            document.getElementById("buygun").style.display="none";
+            document.getElementById("turret").style.display="block";
+            turret = true;
+            activateTurret();
+            }
+    }
+    else if (turret === true){
+    document.getElementById('turretWrapper').classList.add("animated");
+    document.getElementById('turretMenu').style.display="none";
+
+    setTimeout(function(){ 
+        document.getElementById('turretWrapper').style.marginLeft="14.75%";
+     }, 2000);
+    }
+};
+
+document.getElementById('turretFireRate').onclick = function() {
+    if (fireRate === 0){
+        fireRate = 1;
+        turretFirerate = 525;
+        clearInterval(turretAuto);
+        activateTurret();
+        console.log("firerate 1")
+    }
+    else if (fireRate === 1){
+        fireRate = 2;
+        turretFirerate = 450;
+        clearInterval(turretAuto);
+        activateTurret();
+        console.log("firerate 2")
+    }
+    else if (fireRate === 2){
+        fireRate = 3;
+        turretFirerate = 375;
+        clearInterval(turretAuto);
+        activateTurret();
+        console.log("firerate 3")
+    }
+    else if (fireRate === 3){
+        fireRate = 4;
+        turretFirerate = 300;
+        clearInterval(turretAuto);
+        activateTurret();
+    }
+    else if (fireRate === 4){
+        fireRate = 5;
+        turretFirerate = 225;
+        clearInterval(turretAuto);
+        activateTurret();
+    }
+    else if (fireRate === 5){
+        fireRate = 6;
+        turretFirerate = 175;
+        clearInterval(turretAuto);
+        activateTurret();
+    }
+    else if (fireRate === 6){
+        fireRate = 7;
+        turretFirerate = 140;
+        clearInterval(turretAuto);
+        activateTurret();
+    };
+};
+
+document.getElementById('turretDamage').onclick = function() {
+    if (damage === 0){
+        damage = 1;
+        turretIncreaser = 75;
+    }
+    else if (damage === 1){
+        damage = 2;
+        turretIncreaser = 100;
+    }
+    else if (damage === 2){
+        damage = 3;
+        turretIncreaser = 150;
+    }
+    else if (damage === 3){
+        damage = 4;
+        turretIncreaser = 200;
+    }
+    else if (damage === 4){
+        damage = 5;
+        turretIncreaser = 300;
+    }
+    else if (damage === 5){
+        damage = 6;
+        turretIncreaser = 400;
+    }
+    else if (damage === 6){
+        damage = 7;
+        turretIncreaser = 500;
+    };
 };

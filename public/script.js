@@ -1,4 +1,4 @@
-let value = 1000000;
+let value = 500;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
@@ -277,10 +277,10 @@ document.getElementById('secondupgrade').onclick = function() {
 };
 
 document.getElementById('thirdupgrade').onclick = function() {
-    if (value >= 500){
+    if (value >= 750){
     electricreload = true;
     document.getElementById("thirdupgrade").style.display = "none";
-    value = value-500;
+    value = value-750;
     document.getElementById('value').innerHTML = "Money: $" + value;
     }
 };
@@ -316,9 +316,9 @@ document.getElementById('sixthupgrade').onclick = function() {
 
 document.getElementById('buygun').onclick = function() {
   if (gunlevel === 1){
-    if (value >= 750){
-    value = value-750;
-    increaser = increaser+20;
+    if (value >= 1000){
+    value = value-1000;
+    increaser = increaser+30;
     ammo = 6;
     magazine = 6;
     gunlevel = 2;
@@ -334,7 +334,7 @@ document.getElementById('buygun').onclick = function() {
   else if (gunlevel === 2){
     if (value >= 1250){
         value = value-1250;
-        increaser = increaser+80;
+        increaser = increaser+70;
         ammo = 1;
         magazine = 1;
         gunlevel = 3;

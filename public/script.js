@@ -255,13 +255,13 @@ function activateTurret() {
   }
 
 document.getElementById('firstupgrade').onclick = function() {
-    if (value >= 200){
+    if (value >= 750){
     document.getElementById('increaser').innerHTML = increaser;
     increaser = increaser+10;
     document.getElementById("firstupgrade").style.display = "none";
     document.getElementById("buygun").style.display = "block";
     console.log("Increase: " + increaser);
-    value = value-200;
+    value = value-750;
     document.getElementById('value').innerHTML = "Money: $" + value;
     document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
     }

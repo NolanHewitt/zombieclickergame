@@ -1,4 +1,4 @@
-let value = 500;
+let value = 50000000;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
@@ -493,7 +493,6 @@ document.getElementById('turretMenu').onclick = function() {
             value = value-50000;
             document.getElementById('value').innerHTML = "Money: $" + value;
             document.getElementById('turretMenu').innerHTML = "Open Turret Upgrades";
-            document.getElementById("buygun").style.display="none";
             document.getElementById("turret").style.display="block";
             turret = true;
             activateTurret();

@@ -17,6 +17,18 @@
   min-height: 50%;
 }
 
+#value {
+  color: green;
+}
+
+#ammo {
+  color: gold;
+}
+
+#health {
+  color: royalblue;
+}
+
 #click {
   display:inline-block;
   height: 20%;
@@ -83,7 +95,7 @@
     display:block;
     width: 5%, 10%;
     border: 1px solid rebeccapurple;
-    margin-left: 25.1%;
+    margin-left: 30.2%;
     margin-top: 0%;
     position: absolute;
     z-index: 3;
@@ -110,6 +122,16 @@
   }
 
   #fifthupgrade {
+    display:block;
+    width: 5%, 10%;
+    border: 1px solid green;
+    margin-left: 25.1%;
+    margin-top: 0%;
+    position: absolute;
+    z-index: 3;
+  }
+
+  #sixthupgrade {
     display:block;
     width: 5%, 10%;
     border: 1px solid green;
@@ -191,6 +213,14 @@
   position: absolute;
   display: none;
 }
+
+#turretIncreaser{
+display: none;
+}
+
+#turretROF{
+  display: none;
+  }
 
 .animated {
   animation: moveOnScreen 2s 1;

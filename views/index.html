@@ -19,19 +19,20 @@
 <button id="thirdupgrade">Electric Reload <br> 500$</button>
 <button id="secondupgrade">Auto Reload <br> 10000$</button>
 <button id="fourthupgrade">Speed Reload <br> 1500$</button>
+<button id="sixthupgrade">Stamin-Up <br> 2500$</button>
 <button id="fifthupgrade">Juggernaut <br> 5000$</button>
 
 <button id="buygun">Buy Revolver<br> 750$ </button>
 
 <button id="reload">Reload</button>
 
-<button id="turretMenu">Buy Turret <br> $1000000</button>
+<button id="turretMenu">Buy Turret <br> $50000</button>
 
 <div id="turretWrapper">
 <div class="anim" id="turretUpgrades">
-        <button id="turretDamage">Increase Turret Damage</button> <p>$1000000</p>
-        <br>
-        <button id="turretFireRate">Increase Turret Fire</button> <p>$1000000</p>
+        <button id="turretDamage">Increase Turret Damage</button> <p id="tDmgVal">$100000</p>
+        <br id="tMenuBr">
+        <button id="turretFireRate">Increase Turret Fire</button> <p id="tFRVal">$100000</p>
 </div>
 </div>
 
@@ -42,6 +43,8 @@
 <img id="turret" src="../public/images/turret.png">
 
 <div id="hudwrapper">
+        <h1 id="turretIncreaser">Turret Value = 50</h1>
+        <h1 id="turretROF">Turret Fire-Rate: 100rpm</h1>
         <h1 id="increaser">Click Value = 10</h1>
         <h2 id="value">Money: $0</h2>
         <h2 id="ammo">Ammo: 8</h2>

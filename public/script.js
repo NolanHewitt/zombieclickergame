@@ -1,10 +1,11 @@
-let value = 1500000;
+let value = 1000000;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
 let gunlevel = 1;
 let health = 100;
 let maxhealth = 100;
+let hitChance = 0.10;
 let fullmag = true;
 let reloading = false;
 let autoreload = false;
@@ -19,12 +20,19 @@ let turretFirerate = 600;
 let fireRate = 0;
 let damage = 0;
 
+//Starting Health Regen Mechanics
 let oldhealth = setInterval(
     function(){
         if (health < maxhealth){
             health = health+1;
             document.getElementById('health').innerHTML = "HP: " + health;
-                            }
+                            };
+        if (health <= 70){
+            document.getElementById('health').style.color = "red";
+        };
+        if (health > 70){
+            document.getElementById('health').style.color = "royalblue";
+        };
     }, 300);
 
 
@@ -40,18 +48,26 @@ else if (juggernaut === true){
             if (health < maxhealth){
                 health = health+1;
                 document.getElementById('health').innerHTML = "HP: " + health;
-                                }
+                                };
+                                if (health <= 70){
+                                    document.getElementById('health').style.color = "red";
+                                };
+                                if (health > 70){
+                                    document.getElementById('health').style.color = "rebeccapurple";
+                                };
         }, 210);
     }
 };
 regeneration();
 
+//If HP is less than zero you lose
 setInterval(function(){
     if(health<=0){
        window.location='lose';
     }
 }, 100);
 
+//Remove notification that you took damage after two seconds
 function removedamagemessage(){
     setTimeout(function(){
         document.getElementById('damagetook').style.display = 'none';
@@ -59,10 +75,10 @@ function removedamagemessage(){
 }
 
 document.getElementById('click').onclick = function() {
-//Trying to fire the gun causes the zombie to damage you 15% of the time.
+//Trying to fire the gun causes the zombie to damage you 10% of the time.
     var d = Math.random();
     console.log (d);
-if (d < 0.10){
+if (d < hitChance){
     health = health-70
     document.getElementById('health').innerHTML = "HP: " + health;
     document.getElementById('damagetook').style.display = 'block';
@@ -115,7 +131,7 @@ if (ammo > 1){
     reloading = true;
 
     if (electricreload === true){
-        value = value + 50;
+        value = value + (50 * gunlevel);
         document.getElementById('value').innerHTML = "Money: $" + value;
     }
 
@@ -140,7 +156,7 @@ if (ammo > 1){
     reloading = true;
 
     if (electricreload === true){
-        value = value + 50;
+        value = value + (50 * gunlevel);
         document.getElementById('value').innerHTML = "Money: $" + value;
     }
 
@@ -177,7 +193,7 @@ document.getElementById('reload').onclick = function() {
         ammo = -1;
         reloading = true;
         if (electricreload === true){
-            value = value + 50;
+            value = value + (50 * gunlevel);
             document.getElementById('value').innerHTML = "Money: $" + value;
         };
     setTimeout(function(){ 
@@ -200,7 +216,7 @@ document.getElementById('reload').onclick = function() {
         ammo = -1;
         reloading = true;
         if (electricreload === true){
-            value = value + 50;
+            value = value + (50 * gunlevel);
             document.getElementById('value').innerHTML = "Money: $" + value;
         };
     setTimeout(function(){ 
@@ -230,7 +246,7 @@ function activateTurret() {
 
         setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 100);
 
-        var audio4 = document.getElementById("audio4");
+        let audio4 = document.getElementById("audio4");
         audio4.play();
         if (audio4.currentTime > 0) {
             audio4.currentTime = 0
@@ -286,6 +302,15 @@ document.getElementById('fifthupgrade').onclick = function() {
     value = value-5000;
     document.getElementById('value').innerHTML = "Money: $" + value;
     regeneration();
+    }
+};
+
+document.getElementById('sixthupgrade').onclick = function() {
+    if (value >= 2500){
+    document.getElementById("sixthupgrade").style.display = "none";
+    value = value-2500;
+    document.getElementById('value').innerHTML = "Money: $" + value;
+    hitChance = 0.05;
     }
 };
 
@@ -464,101 +489,155 @@ document.getElementById('buygun').onclick = function() {
 document.getElementById('turretMenu').onclick = function() {
 
     if (turret === false){
-        if (value >= 1000000){
-            value = value-1000000;
+        if (value >= 50000){
+            value = value-50000;
             document.getElementById('value').innerHTML = "Money: $" + value;
             document.getElementById('turretMenu').innerHTML = "Open Turret Upgrades";
             document.getElementById("buygun").style.display="none";
             document.getElementById("turret").style.display="block";
             turret = true;
             activateTurret();
-            }
-    }
-    else if (turret === true){
-    document.getElementById('turretWrapper').classList.add("animated");
+            document.getElementById("turretIncreaser").style.display="block";
+            document.getElementById("turretROF").style.display="block";
+            document.getElementById('turretWrapper').classList.add("animated");
     document.getElementById('turretMenu').style.display="none";
 
     setTimeout(function(){ 
         document.getElementById('turretWrapper').style.marginLeft="14.75%";
      }, 2000);
+            }
     }
 };
 
 document.getElementById('turretFireRate').onclick = function() {
-    if (fireRate === 0){
+    if (fireRate === 0 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 120rpm";
         fireRate = 1;
-        turretFirerate = 525;
+        turretFirerate = 500;
         clearInterval(turretAuto);
         activateTurret();
         console.log("firerate 1")
     }
-    else if (fireRate === 1){
+    else if (fireRate === 1 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 138rpm";
         fireRate = 2;
-        turretFirerate = 450;
+        turretFirerate = 433;
         clearInterval(turretAuto);
         activateTurret();
         console.log("firerate 2")
     }
-    else if (fireRate === 2){
+    else if (fireRate === 2 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 180rpm";
         fireRate = 3;
-        turretFirerate = 375;
+        turretFirerate = 333;
         clearInterval(turretAuto);
         activateTurret();
         console.log("firerate 3")
     }
-    else if (fireRate === 3){
+    else if (fireRate === 3 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 225rpm";
         fireRate = 4;
-        turretFirerate = 300;
+        turretFirerate = 266;
         clearInterval(turretAuto);
         activateTurret();
     }
-    else if (fireRate === 4){
+    else if (fireRate === 4 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 300rpm";
         fireRate = 5;
-        turretFirerate = 225;
+        turretFirerate = 200;
         clearInterval(turretAuto);
         activateTurret();
     }
-    else if (fireRate === 5){
+    else if (fireRate === 5 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 360rpm";
         fireRate = 6;
-        turretFirerate = 175;
+        turretFirerate = 166;
         clearInterval(turretAuto);
         activateTurret();
     }
-    else if (fireRate === 6){
+    else if (fireRate === 6 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 450rpm";
         fireRate = 7;
-        turretFirerate = 140;
+        turretFirerate = 133;
         clearInterval(turretAuto);
         activateTurret();
+        document.getElementById("turretFireRate").style.display = "none";
+        document.getElementById("tFRVal").style.display = "none";
+        document.getElementById("tMenuBr").style.display = "none";
+        if (damage === 7){
+            document.getElementById("turretWrapper").style.display = "none";
+        };
     };
 };
 
 document.getElementById('turretDamage').onclick = function() {
-    if (damage === 0){
+    if (damage === 0 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
         damage = 1;
         turretIncreaser = 75;
+        document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
-    else if (damage === 1){
+    else if (damage === 1 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
         damage = 2;
         turretIncreaser = 100;
+        document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
-    else if (damage === 2){
+    else if (damage === 2 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
         damage = 3;
         turretIncreaser = 150;
+        document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
-    else if (damage === 3){
+    else if (damage === 3 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
         damage = 4;
         turretIncreaser = 200;
+        document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
-    else if (damage === 4){
+    else if (damage === 4 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
         damage = 5;
         turretIncreaser = 300;
+        document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
-    else if (damage === 5){
+    else if (damage === 5 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
         damage = 6;
         turretIncreaser = 400;
+        document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
-    else if (damage === 6){
+    else if (damage === 6 && value >= 100000){
+        value = value - 100000;
+        document.getElementById('value').innerHTML = "Money: $" + value;
         damage = 7;
         turretIncreaser = 500;
+        document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
+        document.getElementById("turretDamage").style.display = "none";
+        document.getElementById("tDmgVal").style.display = "none";
+        document.getElementById("tMenuBr").style.display = "none";
+        if (fireRate === 7){
+            document.getElementById("turretWrapper").style.display = "none";
+        };
     };
 };

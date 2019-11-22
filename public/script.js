@@ -14,7 +14,7 @@ let speedreload = false;
 let juggernaut = false;
 let turret = false;
 let turretAuto;
-let turretIncreaser = 50;
+let turretIncreaser = 100;
 //No lower than 120 for turret fire rate
 let turretFirerate = 600;
 let fireRate = 0;
@@ -588,28 +588,28 @@ document.getElementById('turretDamage').onclick = function() {
         value = value - 100000;
         document.getElementById('value').innerHTML = "Money: $" + value;
         damage = 1;
-        turretIncreaser = 75;
+        turretIncreaser = 150;
         document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
     else if (damage === 1 && value >= 100000){
         value = value - 100000;
         document.getElementById('value').innerHTML = "Money: $" + value;
         damage = 2;
-        turretIncreaser = 100;
+        turretIncreaser = 175;
         document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
     else if (damage === 2 && value >= 100000){
         value = value - 100000;
         document.getElementById('value').innerHTML = "Money: $" + value;
         damage = 3;
-        turretIncreaser = 150;
+        turretIncreaser = 200;
         document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
     else if (damage === 3 && value >= 100000){
         value = value - 100000;
         document.getElementById('value').innerHTML = "Money: $" + value;
         damage = 4;
-        turretIncreaser = 200;
+        turretIncreaser = 250;
         document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
     else if (damage === 4 && value >= 100000){

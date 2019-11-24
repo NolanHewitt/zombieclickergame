@@ -4,6 +4,10 @@ let ammo = 8;
 let magazine = 8;
 let gunlevel = 1;
 let health = 100;
+let zombieHealth = 100;
+let zombieAlive = true;
+let zombiesKilled = 0;
+let gunDamage = 10;
 let maxhealth = 100;
 let hitChance = 0.10;
 let fullmag = true;
@@ -64,7 +68,25 @@ regeneration();
 setInterval(function(){
     if(health<=0){
        window.location='lose';
-    }
+    };
+
+    if (zombieHealth <= 0 && zombieAlive === true){
+        zombieAlive = false;
+        zombiesKilled = zombiesKilled + 1;
+        console.log("Z Killed: " + zombiesKilled);
+        document.getElementById('zombie').style.display = "none";
+        zombieHealth = Math.floor(100 * ((1.1)**zombiesKilled));
+        console.log("Z HP: " + zombieHealth);
+        value=value+(increaser * 6);
+        document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('zKilled').innerHTML = "Zombies Killed: " + zombiesKilled;
+
+        setTimeout(function(){
+            document.getElementById('zombie').style.display = 'block';
+            zombieAlive = true;
+            }, 2000);
+
+    };
 }, 100);
 
 //Remove notification that you took damage after two seconds
@@ -78,7 +100,7 @@ document.getElementById('click').onclick = function() {
 //Trying to fire the gun causes the zombie to damage you 10% of the time.
     var d = Math.random();
     console.log (d);
-if (d < hitChance){
+if (d < hitChance && zombieAlive === true && ammo > 0){
     health = health-70
     document.getElementById('health').innerHTML = "HP: " + health;
     document.getElementById('damagetook').style.display = 'block';
@@ -87,15 +109,23 @@ if (d < hitChance){
 //Shooting mechanics
 if (ammo > 1){
     ammo = ammo-1;
-    value=value+increaser;
     fullmag=false;
-    document.getElementById('value').innerHTML = "Money: $" + value;
     document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
-    console.log("Value: " + value);
 
+    if (zombieAlive === true){
+    value=value+increaser;
+    if (gunlevel === 4 || gunlevel === 5){
+        zombieHealth = zombieHealth - (gunDamage*(Math.floor(Math.random() * 8) + 1));
+    console.log("Z hp is " + zombieHealth);
+    }
+    else {
+    zombieHealth = zombieHealth - gunDamage;
+    console.log("Z hp is " + zombieHealth);
+    };
+    document.getElementById('value').innerHTML = "Money: $" + value;
     document.getElementById('hitmarker').style.display="block";
-
     setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
+    };
 
     var audio = document.getElementById("audio");
        audio.play();
@@ -107,15 +137,23 @@ if (ammo > 1){
   }
   else if (ammo === 1){
     ammo = ammo-1;
-    value=value+increaser;
     fullmag=false;
-    document.getElementById('value').innerHTML = "Money: $" + value;
     document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
-    console.log("Value: " + value);
 
+    if (zombieAlive === true){
+        value=value+increaser;
+        if (gunlevel === 4 || gunlevel === 5){
+            zombieHealth = zombieHealth - (gunDamage*(Math.floor(Math.random() * 8) + 1));
+        console.log("Z hp is " + zombieHealth);
+        }
+        else {
+        zombieHealth = zombieHealth - gunDamage;
+        console.log("Z hp is " + zombieHealth);
+        };
+    document.getElementById('value').innerHTML = "Money: $" + value;
     document.getElementById('hitmarker').style.display="block";
-
     setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
+    };
 
     var audio = document.getElementById("audio");
        audio.play();
@@ -258,6 +296,7 @@ document.getElementById('firstupgrade').onclick = function() {
     if (value >= 750){
     document.getElementById('increaser').innerHTML = increaser;
     increaser = increaser+10;
+    gunDamage = 20;
     document.getElementById("firstupgrade").style.display = "none";
     document.getElementById("buygun").style.display = "block";
     console.log("Increase: " + increaser);
@@ -322,6 +361,7 @@ document.getElementById('buygun').onclick = function() {
     ammo = 6;
     magazine = 6;
     gunlevel = 2;
+    gunDamage = 40;
     document.getElementById('buygun').innerHTML = "Buy RW1" +  "<br />" + "1250$";
     document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
     document.getElementById('value').innerHTML = "Money: $" + value;
@@ -338,6 +378,7 @@ document.getElementById('buygun').onclick = function() {
         ammo = 1;
         magazine = 1;
         gunlevel = 3;
+        gunDamage = 100;
         document.getElementById('buygun').innerHTML = "Buy Spas12" +  "<br />" + "2000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -354,6 +395,7 @@ document.getElementById('buygun').onclick = function() {
         ammo = 8;
         magazine = 8;
         gunlevel = 4;
+        gunDamage = 30;
         document.getElementById('buygun').innerHTML = "Buy 1887" +  "<br />" + "3000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -371,6 +413,7 @@ document.getElementById('buygun').onclick = function() {
         ammo = 7;
         magazine = 7;
         gunlevel = 5;
+        gunDamage = 40;
         document.getElementById('buygun').innerHTML = "Buy MORS" +  "<br />" + "6000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -388,6 +431,7 @@ document.getElementById('buygun').onclick = function() {
         ammo = 1;
         magazine = 1;
         gunlevel = 6;
+        gunDamage = 400;
         document.getElementById('buygun').innerHTML = "Buy Barrett" +  "<br />" + "9010$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -405,6 +449,7 @@ document.getElementById('buygun').onclick = function() {
         ammo = 5;
         magazine = 5;
         gunlevel = 7;
+        gunDamage = 300;
         document.getElementById('buygun').innerHTML = "Buy Ray-Gun" +  "<br />" + "20000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -422,6 +467,7 @@ document.getElementById('buygun').onclick = function() {
         ammo = 20;
         magazine = 20;
         gunlevel = 8;
+        gunDamage = 500;
         document.getElementById('buygun').innerHTML = "Upgrade Ray-Gun" +  "<br />" + "5000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -439,6 +485,7 @@ document.getElementById('buygun').onclick = function() {
         ammo = 40;
         magazine = 40;
         gunlevel = 9;
+        gunDamage = 600;
         document.getElementById('buygun').innerHTML = "Buy Thundergun" +  "<br />" + "50000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -456,6 +503,7 @@ document.getElementById('buygun').onclick = function() {
         ammo = 2;
         magazine = 2;
         gunlevel = 10;
+        gunDamage = 1000;
         document.getElementById('buygun').innerHTML = "Upgrade Thundergun" +  "<br />" + "5000$";
         document.getElementById("buygun").style.marginLeft="1%";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
@@ -474,6 +522,7 @@ document.getElementById('buygun').onclick = function() {
         ammo = 4;
         magazine = 4;
         gunlevel = 11;
+        gunDamage = 1500;
         document.getElementById("buygun").style.display="none";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;

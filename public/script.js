@@ -76,7 +76,7 @@ regeneration();
 
 //If HP is less than zero you lose
 setInterval(function(){
-    if(health<=0){
+    if(health <= 0){
        window.location='lose';
     };
 

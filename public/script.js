@@ -1,4 +1,4 @@
-let value = 500;
+let value = 5000000;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
@@ -650,7 +650,7 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
         document.getElementById("gun").src="../public/images/mors.png";
-        document.getElementById("gun").style.marginLeft="25%";
+        document.getElementById("gun").style.marginLeft="75%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
         document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
         }
@@ -670,7 +670,7 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
         document.getElementById("gun").src="../public/images/barrett.png";
-        document.getElementById("gun").style.marginLeft="-65%";
+        document.getElementById("gun").style.marginLeft="25%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
         document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
         }

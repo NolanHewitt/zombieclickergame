@@ -51,14 +51,22 @@
 #gun {
     width: 100%;
     margin-top: 25%;
+    cursor:pointer;
 }
 
 #reload {
     position:absolute;
-    margin-top: 47.5%;
-    margin-left: 85%;
+    margin-top: 40%;
+    margin-left: 82.5%;
     font-size: 35px;
     z-index: 1;
+
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }
 
 #zombie {
@@ -108,6 +116,7 @@
   margin-top: 0%;
   position: absolute;
   z-index: 3;
+  cursor:pointer;
 }
 
 #secondupgrade {
@@ -118,6 +127,7 @@
     margin-top: 0%;
     position: absolute;
     z-index: 3;
+    cursor:pointer;
   }
 
   #thirdupgrade {
@@ -128,6 +138,7 @@
     margin-top: 0%;
     position: absolute;
     z-index: 3;
+    cursor:pointer;
   }
 
   #fourthupgrade {
@@ -138,6 +149,7 @@
     margin-top: 0%;
     position: absolute;
     z-index: 3;
+    cursor:pointer;
   }
 
   #fifthupgrade {
@@ -148,6 +160,7 @@
     margin-top: 0%;
     position: absolute;
     z-index: 3;
+    cursor:pointer;
   }
 
   #sixthupgrade {
@@ -158,6 +171,7 @@
     margin-top: 0%;
     position: absolute;
     z-index: 3;
+    cursor:pointer;
   }
 
   #seventhupgrade {
@@ -168,6 +182,7 @@
     margin-top: 0%;
     position: absolute;
     z-index: 3;
+    cursor:pointer;
   }
 
   #perkdescriptionWrapper {
@@ -230,6 +245,7 @@
     margin-top: 0%;
     position: absolute;
     z-index: 3;
+    cursor:pointer;
   }
 
 #hudwrapper {
@@ -262,6 +278,7 @@
   font-size: 30px;
   display: block;
   z-index: 10;
+  cursor:pointer;
 }
 
 #turretWrapper {
@@ -284,10 +301,12 @@
 #turretFireRate {
   font-size: 20px;
   margin-top: 5%;
+  cursor:pointer;
 }
 
 #turretDamage {
   font-size: 20px;
+  cursor:pointer;
 }
 
 #turret {

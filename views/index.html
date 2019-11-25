@@ -15,12 +15,38 @@
 
 <br>
 
-<button id="firstupgrade">Double Tap <br> 750$</button>
-<button id="thirdupgrade">Electric Reload <br> 1000$</button>
-<button id="secondupgrade">Auto Reload <br> 10000$</button>
-<button id="fourthupgrade">Speed Reload <br> 1500$</button>
-<button id="sixthupgrade">Stamin-Up <br> 2500$</button>
-<button id="fifthupgrade">Juggernaut <br> 5000$</button>
+<button onmouseover="showDesc1()" onmouseout="hideDesc()" id="firstupgrade">Double Tap <br> 750$</button>
+<button onmouseover="showDesc3()" onmouseout="hideDesc()" id="thirdupgrade">Electric Reload <br> 1000$</button>
+<button onmouseover="showDesc2()" onmouseout="hideDesc()" id="secondupgrade">Auto Reload <br> 10000$</button>
+<button onmouseover="showDesc4()" onmouseout="hideDesc()" id="fourthupgrade">Speed Reload <br> 1500$</button>
+<button onmouseover="showDesc6()" onmouseout="hideDesc()" id="sixthupgrade">Stamin-Up <br> 2500$</button>
+<button onmouseover="showDesc5()" onmouseout="hideDesc()" id="fifthupgrade">Juggernaut <br> 5000$</button>
+<button onmouseover="showDesc7()" onmouseout="hideDesc()" id="seventhupgrade">Deadshot <br> 7500$</button>
+
+<div id="perkdescriptionWrapper">
+    <p id="perkDescription1">
+        Doubles the damage of your starting pistol.
+    </p>
+    <p id="perkDescription2">
+            Automatically reload when your weapon is out of ammo.
+        </p>
+        <p id="perkDescription3">
+                Gain money and damage the zombie when you reload.
+            </p>
+            <p id="perkDescription4">
+                    Increased reload speed from 2.7 seconds to 1.25 seconds.
+                </p>
+                <p id="perkDescription5">
+                        Increases max health to 150 and regenerate health 40% faster.
+                    </p>
+                    <p id="perkDescription6">
+                            Chance to get hit by the zombie when shooting it reduced from 10% to 5%.
+                        </p>
+                        <p id="perkDescription7">
+                                Chance to get a headshot increased from 10% to 35%.
+                            </p>
+</div>
+
 
 <button id="buygun">Buy Revolver<br> 1000$ </button>
 
@@ -30,9 +56,9 @@
 
 <div id="turretWrapper">
 <div class="anim" id="turretUpgrades">
-        <button id="turretDamage">Increase Turret Damage</button> <p id="tDmgVal">$100000</p>
+        <button id="turretDamage">Increase Turret Damage</button> <p id="tDmgVal">$50000</p>
         <br id="tMenuBr">
-        <button id="turretFireRate">Increase Turret Fire</button> <p id="tFRVal">$100000</p>
+        <button id="turretFireRate">Increase Turret Fire</button> <p id="tFRVal">$50000</p>
 </div>
 </div>
 
@@ -60,5 +86,6 @@
 <audio id="audio2" src="../public/sounds/empty.mp3" ></audio>
 <audio id="audio3" src="../public/sounds/pistolreload.wav" ></audio>
 <audio id="audio4" src="../public/sounds/m1911.mp3" ></audio>
+<audio id="audio5" src="../public/sounds/electriccurrent.mp3" ></audio>
     </body>
 </html>

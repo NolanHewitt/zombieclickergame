@@ -8,8 +8,12 @@ let zombieHealth = 100;
 let zombieAlive = true;
 let zombiesKilled = 0;
 let gunDamage = 10;
+let turretDamage = 100;
+let electricDamage = 50;
 let maxhealth = 100;
 let hitChance = 0.10;
+let headshotChance = 0.10;
+let headshotMultiplier = 1.5;
 let fullmag = true;
 let reloading = false;
 let autoreload = false;
@@ -19,10 +23,16 @@ let juggernaut = false;
 let turret = false;
 let turretAuto;
 let turretIncreaser = 100;
+let audio5 = document.getElementById("audio5");
+let audio4 = document.getElementById("audio4");
+let audio3 = document.getElementById("audio3");
+let audio2 = document.getElementById("audio2");
+let audio = document.getElementById("audio");
 //No lower than 120 for turret fire rate
 let turretFirerate = 600;
 let fireRate = 0;
 let damage = 0;
+
 
 //Starting Health Regen Mechanics
 let oldhealth = setInterval(
@@ -75,7 +85,7 @@ setInterval(function(){
         zombiesKilled = zombiesKilled + 1;
         console.log("Z Killed: " + zombiesKilled);
         document.getElementById('zombie').style.display = "none";
-        zombieHealth = Math.floor(100 * ((1.1)**zombiesKilled));
+        zombieHealth = Math.floor(100 * ((1.15)**zombiesKilled));
         console.log("Z HP: " + zombieHealth);
         value=value+(increaser * 6);
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -98,8 +108,10 @@ function removedamagemessage(){
 
 document.getElementById('click').onclick = function() {
 //Trying to fire the gun causes the zombie to damage you 10% of the time.
-    var d = Math.random();
-    console.log (d);
+    let d = Math.random();
+    let h = Math.random();
+    console.log ("d: " + d);
+    console.log ("h: " + h);
 if (d < hitChance && zombieAlive === true && ammo > 0){
     health = health-70
     document.getElementById('health').innerHTML = "HP: " + health;
@@ -113,13 +125,21 @@ if (ammo > 1){
     document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
 
     if (zombieAlive === true){
-    value=value+increaser;
+            value=value+increaser;
     if (gunlevel === 4 || gunlevel === 5){
         zombieHealth = zombieHealth - (gunDamage*(Math.floor(Math.random() * 8) + 1));
     console.log("Z hp is " + zombieHealth);
     }
     else {
-    zombieHealth = zombieHealth - gunDamage;
+        if (h <= headshotChance) {
+            zombieHealth = (zombieHealth - (gunDamage * headshotMultiplier));
+            console.log("headshot");
+        }
+        else {
+            zombieHealth = zombieHealth - gunDamage;
+            console.log("bodyshot");
+        };
+
     console.log("Z hp is " + zombieHealth);
     };
     document.getElementById('value').innerHTML = "Money: $" + value;
@@ -127,7 +147,7 @@ if (ammo > 1){
     setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
     };
 
-    var audio = document.getElementById("audio");
+       audio = document.getElementById("audio");
        audio.play();
        if (audio.currentTime > 0) {
         
@@ -155,7 +175,7 @@ if (ammo > 1){
     setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
     };
 
-    var audio = document.getElementById("audio");
+       audio = document.getElementById("audio");
        audio.play();
        if (audio.currentTime > 0) {
         
@@ -171,6 +191,9 @@ if (ammo > 1){
     if (electricreload === true){
         value = value + (50 * gunlevel);
         document.getElementById('value').innerHTML = "Money: $" + value;
+        if (zombieAlive === true){
+        zombieHealth = zombieHealth - electricDamage;
+        };
     }
 
     setTimeout(function(){ 
@@ -180,12 +203,22 @@ if (ammo > 1){
         reloading = false;
          }, 2700);
 
-    var audio3 = document.getElementById("audio3");
+        audio3 = document.getElementById("audio3");
         audio3.play();
         if (audio3.currentTime > 0) {
             audio3.currentTime = 0
             audio3.play();
-        }
+        };
+        if (electricreload === true){
+            setTimeout(function(){
+                audio5 = document.getElementById("audio5");
+                audio5.play();
+            if (audio5.currentTime > 0) {
+                audio5.currentTime = 0
+                audio5.play();
+            };
+                }, 150);
+        };
     }
   }
   if (speedreload === true){
@@ -196,7 +229,10 @@ if (ammo > 1){
     if (electricreload === true){
         value = value + (50 * gunlevel);
         document.getElementById('value').innerHTML = "Money: $" + value;
-    }
+        if (zombieAlive === true){
+            zombieHealth = zombieHealth - electricDamage;
+            };
+    };
 
     setTimeout(function(){ 
         ammo = magazine;
@@ -205,17 +241,27 @@ if (ammo > 1){
         reloading = false;
          }, 1250);
 
-    var audio3 = document.getElementById("audio3");
+        audio3 = document.getElementById("audio3");
         audio3.play();
         if (audio3.currentTime > 0) {
             audio3.currentTime = 0
             audio3.play();
         }
+        if (electricreload === true){
+            setTimeout(function(){
+                audio5 = document.getElementById("audio5");
+                audio5.play();
+            if (audio5.currentTime > 0) {
+                audio5.currentTime = 0
+                audio5.play();
+            };
+                }, 150);
+        };
     }
   }
  }
   else if (ammo === 0) {
-    var audio2 = document.getElementById("audio2");
+        audio2 = document.getElementById("audio2");
         audio2.play();
         if (audio2.currentTime > 0) {
             audio2.currentTime = 0
@@ -228,12 +274,22 @@ if (ammo > 1){
 document.getElementById('reload').onclick = function() {
   if (speedreload === false){
     if (reloading === false && fullmag === false){
-        ammo = -1;
-        reloading = true;
-        if (electricreload === true){
+        if (electricreload === true && ammo >= 1){
             value = value + (50 * gunlevel);
             document.getElementById('value').innerHTML = "Money: $" + value;
+            if (zombieAlive === true){
+                zzombieHealth = (zombieHealth - (electricDamage/2));
+                };
+        }
+        else if (electricreload === true && ammo === 0){
+            value = value + (50 * gunlevel);
+            document.getElementById('value').innerHTML = "Money: $" + value;
+            if (zombieAlive === true){
+                zombieHealth = zombieHealth - electricDamage;
+                };
         };
+        ammo = -1;
+        reloading = true;
     setTimeout(function(){ 
         ammo = magazine;
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
@@ -241,22 +297,41 @@ document.getElementById('reload').onclick = function() {
         fullmag=true;
          }, 2500);
 
-         var audio3 = document.getElementById("audio3");
+          audio3 = document.getElementById("audio3");
           audio3.play();
           if (audio3.currentTime > 0) {
               audio3.currentTime = 0
               audio3.play();
-          }
+          };
+          if (electricreload === true){
+            audio5 = document.getElementById("audio5");
+            audio5.play();
+        if (audio5.currentTime > 0) {
+            audio5.currentTime = 0
+            audio5.play();
+        };
+        };
     };
   }
   else if (speedreload === true){
     if (reloading === false && fullmag === false){
-        ammo = -1;
-        reloading = true;
-        if (electricreload === true){
+        if (electricreload === true && ammo >= 1){
             value = value + (50 * gunlevel);
             document.getElementById('value').innerHTML = "Money: $" + value;
+            if (zombieAlive === true){
+                zombieHealth = (zombieHealth - (electricDamage/2));
+                };
+        }
+        else if (electricreload === true && ammo === 0){
+            value = value + (50 * gunlevel);
+            document.getElementById('value').innerHTML = "Money: $" + value;
+            if (zombieAlive === true){
+                zombieHealth = zombieHealth - electricDamage;
+                };
+
         };
+        ammo = -1;
+        reloading = true;
     setTimeout(function(){ 
         ammo = magazine;
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
@@ -264,12 +339,20 @@ document.getElementById('reload').onclick = function() {
         fullmag=true;
          }, 1000);
 
-         var audio3 = document.getElementById("audio3");
+          audio3 = document.getElementById("audio3");
           audio3.play();
           if (audio3.currentTime > 0) {
               audio3.currentTime = 0
               audio3.play();
-          }
+          };
+          if (electricreload === true){
+            audio5 = document.getElementById("audio5");
+            audio5.play();
+        if (audio5.currentTime > 0) {
+            audio5.currentTime = 0
+            audio5.play();
+        };
+        };
     };
   }
 }
@@ -277,14 +360,15 @@ document.getElementById('reload').onclick = function() {
 function activateTurret() {
     turretAuto = setInterval(function()
     {
+        if (zombieAlive === true){
         value = value + turretIncreaser;
+        zombieHealth = zombieHealth - turretDamage;
+        document.getElementById('hitmarker').style.display="block";
+        setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 100);
+        };
         document.getElementById('value').innerHTML = "Money: $" + value;
 
-        document.getElementById('hitmarker').style.display="block";
-
-        setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 100);
-
-        let audio4 = document.getElementById("audio4");
+        audio4 = document.getElementById("audio4");
         audio4.play();
         if (audio4.currentTime > 0) {
             audio4.currentTime = 0
@@ -353,6 +437,61 @@ document.getElementById('sixthupgrade').onclick = function() {
     }
 };
 
+document.getElementById('seventhupgrade').onclick = function() {
+    if (value >= 7500){
+    document.getElementById("seventhupgrade").style.display = "none";
+    value = value-7500;
+    document.getElementById('value').innerHTML = "Money: $" + value;
+    headshotChance = 0.35;
+    }
+};
+
+function hideDesc() {
+    document.getElementById("perkdescriptionWrapper").style.display = "none";
+    document.getElementById("perkDescription1").style.display = "none";
+    document.getElementById("perkDescription2").style.display = "none";
+    document.getElementById("perkDescription3").style.display = "none";
+    document.getElementById("perkDescription4").style.display = "none";
+    document.getElementById("perkDescription5").style.display = "none";
+    document.getElementById("perkDescription6").style.display = "none";
+    document.getElementById("perkDescription7").style.display = "none";
+};
+
+function showDesc1() {
+    document.getElementById("perkdescriptionWrapper").style.display = "block";
+    document.getElementById("perkDescription1").style.display = "block";
+};
+
+function showDesc2() {
+    document.getElementById("perkdescriptionWrapper").style.display = "block";
+    document.getElementById("perkDescription2").style.display = "block";
+};
+
+function showDesc3() {
+    document.getElementById("perkdescriptionWrapper").style.display = "block";
+    document.getElementById("perkDescription3").style.display = "block";
+};
+
+function showDesc4() {
+    document.getElementById("perkdescriptionWrapper").style.display = "block";
+    document.getElementById("perkDescription4").style.display = "block";
+};
+
+function showDesc5() {
+    document.getElementById("perkdescriptionWrapper").style.display = "block";
+    document.getElementById("perkDescription5").style.display = "block";
+};
+
+function showDesc6() {
+    document.getElementById("perkdescriptionWrapper").style.display = "block";
+    document.getElementById("perkDescription6").style.display = "block";
+};
+
+function showDesc7() {
+    document.getElementById("perkdescriptionWrapper").style.display = "block";
+    document.getElementById("perkDescription7").style.display = "block";
+};
+
 document.getElementById('buygun').onclick = function() {
   if (gunlevel === 1){
     if (value >= 1000){
@@ -362,6 +501,8 @@ document.getElementById('buygun').onclick = function() {
     magazine = 6;
     gunlevel = 2;
     gunDamage = 40;
+    electricDamage = 100;
+    headshotMultiplier = 2.0;
     document.getElementById('buygun').innerHTML = "Buy RW1" +  "<br />" + "1250$";
     document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
     document.getElementById('value').innerHTML = "Money: $" + value;
@@ -379,6 +520,8 @@ document.getElementById('buygun').onclick = function() {
         magazine = 1;
         gunlevel = 3;
         gunDamage = 100;
+        electricDamage = 20;
+        headshotMultiplier = 1.75;
         document.getElementById('buygun').innerHTML = "Buy Spas12" +  "<br />" + "2000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -396,6 +539,8 @@ document.getElementById('buygun').onclick = function() {
         magazine = 8;
         gunlevel = 4;
         gunDamage = 30;
+        electricDamage = 150;
+        headshotMultiplier = 1.0;
         document.getElementById('buygun').innerHTML = "Buy 1887" +  "<br />" + "3000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -414,6 +559,8 @@ document.getElementById('buygun').onclick = function() {
         magazine = 7;
         gunlevel = 5;
         gunDamage = 40;
+        electricDamage = 160;
+        headshotMultiplier = 1.0;
         document.getElementById('buygun').innerHTML = "Buy MORS" +  "<br />" + "6000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -432,6 +579,8 @@ document.getElementById('buygun').onclick = function() {
         magazine = 1;
         gunlevel = 6;
         gunDamage = 400;
+        electricDamage = 100;
+        headshotMultiplier = 2.5;
         document.getElementById('buygun').innerHTML = "Buy Barrett" +  "<br />" + "9010$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -450,6 +599,7 @@ document.getElementById('buygun').onclick = function() {
         magazine = 5;
         gunlevel = 7;
         gunDamage = 300;
+        electricDamage = 200;
         document.getElementById('buygun').innerHTML = "Buy Ray-Gun" +  "<br />" + "20000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -468,6 +618,8 @@ document.getElementById('buygun').onclick = function() {
         magazine = 20;
         gunlevel = 8;
         gunDamage = 500;
+        electricDamage = 500;
+        headshotMultiplier = 2.0;
         document.getElementById('buygun').innerHTML = "Upgrade Ray-Gun" +  "<br />" + "5000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -486,6 +638,8 @@ document.getElementById('buygun').onclick = function() {
         magazine = 40;
         gunlevel = 9;
         gunDamage = 600;
+        electricDamage = 1500;
+        headshotMultiplier = 2.0;
         document.getElementById('buygun').innerHTML = "Buy Thundergun" +  "<br />" + "50000$";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -504,6 +658,8 @@ document.getElementById('buygun').onclick = function() {
         magazine = 2;
         gunlevel = 10;
         gunDamage = 1000;
+        electricDamage = 500;
+        headshotMultiplier = 1.25;
         document.getElementById('buygun').innerHTML = "Upgrade Thundergun" +  "<br />" + "5000$";
         document.getElementById("buygun").style.marginLeft="1%";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
@@ -523,6 +679,8 @@ document.getElementById('buygun').onclick = function() {
         magazine = 4;
         gunlevel = 11;
         gunDamage = 1500;
+        electricDamage = 750;
+        headshotMultiplier = 1.25;
         document.getElementById("buygun").style.display="none";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -558,49 +716,54 @@ document.getElementById('turretMenu').onclick = function() {
 };
 
 document.getElementById('turretFireRate').onclick = function() {
-    if (fireRate === 0 && value >= 100000){
-        value = value - 100000;
+    if (fireRate === 0 && value >= 50000){
+        value = value - 50000;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 120rpm";
+        document.getElementById('tFRVal').innerHTML = "$60000";
         fireRate = 1;
         turretFirerate = 500;
         clearInterval(turretAuto);
         activateTurret();
         console.log("firerate 1")
     }
-    else if (fireRate === 1 && value >= 100000){
-        value = value - 100000;
+    else if (fireRate === 1 && value >= 60000){
+        value = value - 60000;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 138rpm";
+        document.getElementById('tFRVal').innerHTML = "$70000";
         fireRate = 2;
         turretFirerate = 433;
         clearInterval(turretAuto);
         activateTurret();
         console.log("firerate 2")
     }
-    else if (fireRate === 2 && value >= 100000){
-        value = value - 100000;
+    else if (fireRate === 2 && value >= 70000){
+        value = value - 70000;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 180rpm";
+        document.getElementById('tFRVal').innerHTML = "$80000";
         fireRate = 3;
         turretFirerate = 333;
         clearInterval(turretAuto);
         activateTurret();
         console.log("firerate 3")
     }
-    else if (fireRate === 3 && value >= 100000){
-        value = value - 100000;
+    else if (fireRate === 3 && value >= 80000){
+        value = value - 80000;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 225rpm";
+        document.getElementById('tFRVal').innerHTML = "$90000";
         fireRate = 4;
         turretFirerate = 266;
         clearInterval(turretAuto);
         activateTurret();
     }
-    else if (fireRate === 4 && value >= 100000){
-        value = value - 100000;
+    else if (fireRate === 4 && value >= 90000){
+        value = value - 90000;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 300rpm";
+        document.getElementById('tFRVal').innerHTML = "$100000";
         fireRate = 5;
         turretFirerate = 200;
         clearInterval(turretAuto);
@@ -610,13 +773,14 @@ document.getElementById('turretFireRate').onclick = function() {
         value = value - 100000;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 360rpm";
+        document.getElementById('tFRVal').innerHTML = "$125000";
         fireRate = 6;
         turretFirerate = 166;
         clearInterval(turretAuto);
         activateTurret();
     }
-    else if (fireRate === 6 && value >= 100000){
-        value = value - 100000;
+    else if (fireRate === 6 && value >= 125000){
+        value = value - 125000;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('turretROF').innerHTML = "Turret Fire-Rate: 450rpm";
         fireRate = 7;
@@ -633,53 +797,66 @@ document.getElementById('turretFireRate').onclick = function() {
 };
 
 document.getElementById('turretDamage').onclick = function() {
-    if (damage === 0 && value >= 100000){
-        value = value - 100000;
+    if (damage === 0 && value >= 50000){
+        value = value - 50000;
         document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('tDmgVal').innerHTML = "$60000";
         damage = 1;
         turretIncreaser = 150;
+        turretDamage = 125;
         document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
-    else if (damage === 1 && value >= 100000){
-        value = value - 100000;
+    else if (damage === 1 && value >= 60000){
+        value = value - 60000;
         document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('tDmgVal').innerHTML = "$70000";
         damage = 2;
         turretIncreaser = 175;
+        turretDamage = 150;
         document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
-    else if (damage === 2 && value >= 100000){
-        value = value - 100000;
+    else if (damage === 2 && value >= 70000){
+        value = value - 70000;
         document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('tDmgVal').innerHTML = "$80000";
         damage = 3;
         turretIncreaser = 200;
+        turretDamage = 175;
         document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
-    else if (damage === 3 && value >= 100000){
-        value = value - 100000;
+    else if (damage === 3 && value >= 80000){
+        value = value - 80000;
         document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('tDmgVal').innerHTML = "$90000";
         damage = 4;
         turretIncreaser = 250;
+        turretDamage = 200;
         document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
-    else if (damage === 4 && value >= 100000){
-        value = value - 100000;
+    else if (damage === 4 && value >= 90000){
+        value = value - 90000;
         document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('tDmgVal').innerHTML = "$100000";
         damage = 5;
         turretIncreaser = 300;
+        turretDamage = 250;
         document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
     else if (damage === 5 && value >= 100000){
         value = value - 100000;
         document.getElementById('value').innerHTML = "Money: $" + value;
+        document.getElementById('tDmgVal').innerHTML = "$125000";
         damage = 6;
         turretIncreaser = 400;
+        turretDamage = 300;
         document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
     }
-    else if (damage === 6 && value >= 100000){
-        value = value - 100000;
+    else if (damage === 6 && value >= 125000){
+        value = value - 125000;
         document.getElementById('value').innerHTML = "Money: $" + value;
         damage = 7;
         turretIncreaser = 500;
+        turretDamage = 400;
         document.getElementById("turretIncreaser").innerHTML = "Turret Value = " + turretIncreaser;
         document.getElementById("turretDamage").style.display = "none";
         document.getElementById("tDmgVal").style.display = "none";

@@ -95,7 +95,7 @@
     display:block;
     width: 5%, 10%;
     border: 1px solid rebeccapurple;
-    margin-left: 30.2%;
+    margin-left: 35%;
     margin-top: 0%;
     position: absolute;
     z-index: 3;
@@ -139,6 +139,68 @@
     margin-top: 0%;
     position: absolute;
     z-index: 3;
+  }
+
+  #seventhupgrade {
+    display:block;
+    width: 5%, 10%;
+    border: 1px solid rebeccapurple;
+    margin-left: 30.3%;
+    margin-top: 0%;
+    position: absolute;
+    z-index: 3;
+  }
+
+  #perkdescriptionWrapper {
+    background: white;
+    position: absolute;
+    display: none;
+    width: 25%;
+    height: 5%;
+    margin-top: 4%;
+    margin-left: 8%;
+  }
+
+  #perkDescription1 {
+    font-size: 18px;
+    text-align: center;
+    display: none;
+  }
+
+  #perkDescription2 {
+    font-size: 18px;
+    text-align: center;
+    display: none;
+  }
+
+  #perkDescription3 {
+    font-size: 18px;
+    text-align: center;
+    display: none;
+  }
+
+  #perkDescription4 {
+    font-size: 18px;
+    text-align: center;
+    display: none;
+  }
+
+  #perkDescription5 {
+    font-size: 18px;
+    text-align: center;
+    display: none;
+  }
+
+  #perkDescription6 {
+    font-size: 18px;
+    text-align: center;
+    display: none;
+  }
+
+  #perkDescription7 {
+    font-size: 18px;
+    text-align: center;
+    display: none;
   }
 
   #buygun {

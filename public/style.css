@@ -71,6 +71,15 @@
   z-index: 0;
 }
 
+#zHPbar {
+  position: absolute;
+  margin-top: 18%;
+  margin-left: 45.75%;
+  width: 8%;
+  height: 1.75%;
+  background: crimson;
+}
+
 #hitmarker {
     position: absolute;
     z-index: 1;
@@ -79,6 +88,16 @@
     margin-right: auto;
     display: none;
     width: 16.25%;
+}
+
+#hitmarkerRed {
+  position: absolute;
+  z-index: 1;
+  margin-left: 47%;
+  margin-top: 19.5%;
+  margin-right: auto;
+  display: none;
+  width: 6.25%;
 }
 
 #firstupgrade {

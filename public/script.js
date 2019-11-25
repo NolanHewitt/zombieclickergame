@@ -1,10 +1,12 @@
-let value = 500;
+let value = 5000000;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
 let gunlevel = 1;
 let health = 100;
 let zombieHealth = 100;
+let zombieHealthMax = 100;
+let zombieHealthPercent;
 let zombieAlive = true;
 let zombiesKilled = 0;
 let gunDamage = 10;
@@ -85,7 +87,10 @@ setInterval(function(){
         zombiesKilled = zombiesKilled + 1;
         console.log("Z Killed: " + zombiesKilled);
         document.getElementById('zombie').style.display = "none";
+        document.getElementById('zHPbar').style.display = "none";
+        document.getElementById('zHPbar').style.width = "8%";
         zombieHealth = Math.floor(100 * ((1.15)**zombiesKilled));
+        zombieHealthMax = Math.floor(100 * ((1.15)**zombiesKilled));
         console.log("Z HP: " + zombieHealth);
         value=value+(increaser * 6);
         document.getElementById('value').innerHTML = "Money: $" + value;
@@ -93,6 +98,7 @@ setInterval(function(){
 
         setTimeout(function(){
             document.getElementById('zombie').style.display = 'block';
+            document.getElementById('zHPbar').style.display = "block";
             zombieAlive = true;
             }, 2000);
 
@@ -129,22 +135,26 @@ if (ammo > 1){
     if (gunlevel === 4 || gunlevel === 5){
         zombieHealth = zombieHealth - (gunDamage*(Math.floor(Math.random() * 8) + 1));
     console.log("Z hp is " + zombieHealth);
+    document.getElementById('hitmarker').style.display="block";
+    setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
     }
     else {
         if (h <= headshotChance) {
             zombieHealth = (zombieHealth - (gunDamage * headshotMultiplier));
+            document.getElementById('hitmarkerRed').style.display="block";
+    setTimeout(function(){ document.getElementById('hitmarkerRed').style.display="none"; }, 200);
             console.log("headshot");
         }
         else {
             zombieHealth = zombieHealth - gunDamage;
+            document.getElementById('hitmarker').style.display="block";
+    setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
             console.log("bodyshot");
         };
 
     console.log("Z hp is " + zombieHealth);
     };
     document.getElementById('value').innerHTML = "Money: $" + value;
-    document.getElementById('hitmarker').style.display="block";
-    setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
     };
 
        audio = document.getElementById("audio");
@@ -153,7 +163,9 @@ if (ammo > 1){
         
         audio.currentTime = 0
         audio.play();
-    }
+    };
+    zombieHealthPercent = (8*(zombieHealth/zombieHealthMax));
+    document.getElementById("zHPbar").style.width = zombieHealthPercent+"%";
   }
   else if (ammo === 1){
     ammo = ammo-1;
@@ -165,14 +177,26 @@ if (ammo > 1){
         if (gunlevel === 4 || gunlevel === 5){
             zombieHealth = zombieHealth - (gunDamage*(Math.floor(Math.random() * 8) + 1));
         console.log("Z hp is " + zombieHealth);
+        document.getElementById('hitmarker').style.display="block";
+    setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
         }
         else {
-        zombieHealth = zombieHealth - gunDamage;
+            if (h <= headshotChance) {
+                zombieHealth = (zombieHealth - (gunDamage * headshotMultiplier));
+                document.getElementById('hitmarkerRed').style.display="block";
+        setTimeout(function(){ document.getElementById('hitmarkerRed').style.display="none"; }, 200);
+                console.log("headshot");
+            }
+            else {
+                zombieHealth = zombieHealth - gunDamage;
+                document.getElementById('hitmarker').style.display="block";
+        setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
+                console.log("bodyshot");
+            };
+    
         console.log("Z hp is " + zombieHealth);
         };
     document.getElementById('value').innerHTML = "Money: $" + value;
-    document.getElementById('hitmarker').style.display="block";
-    setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
     };
 
        audio = document.getElementById("audio");
@@ -189,10 +213,12 @@ if (ammo > 1){
     reloading = true;
 
     if (electricreload === true){
+        if (zombieAlive === true){
         value = value + (50 * gunlevel);
         document.getElementById('value').innerHTML = "Money: $" + value;
-        if (zombieAlive === true){
         zombieHealth = zombieHealth - electricDamage;
+        document.getElementById('hitmarker').style.display="block";
+    setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
         };
     }
 
@@ -227,10 +253,12 @@ if (ammo > 1){
     reloading = true;
 
     if (electricreload === true){
-        value = value + (50 * gunlevel);
-        document.getElementById('value').innerHTML = "Money: $" + value;
         if (zombieAlive === true){
+            value = value + (50 * gunlevel);
+            document.getElementById('value').innerHTML = "Money: $" + value;
             zombieHealth = zombieHealth - electricDamage;
+            document.getElementById('hitmarker').style.display="block";
+        setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
             };
     };
 
@@ -259,6 +287,8 @@ if (ammo > 1){
         };
     }
   }
+  zombieHealthPercent = (8*(zombieHealth/zombieHealthMax));
+    document.getElementById("zHPbar").style.width = zombieHealthPercent+"%";
  }
   else if (ammo === 0) {
         audio2 = document.getElementById("audio2");
@@ -275,17 +305,21 @@ document.getElementById('reload').onclick = function() {
   if (speedreload === false){
     if (reloading === false && fullmag === false){
         if (electricreload === true && ammo >= 1){
-            value = value + (50 * gunlevel);
-            document.getElementById('value').innerHTML = "Money: $" + value;
             if (zombieAlive === true){
-                zzombieHealth = (zombieHealth - (electricDamage/2));
+                value = value + (50 * gunlevel);
+                document.getElementById('value').innerHTML = "Money: $" + value;
+                zombieHealth = zombieHealth - electricDamage;
+                document.getElementById('hitmarker').style.display="block";
+            setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
                 };
         }
         else if (electricreload === true && ammo === 0){
-            value = value + (50 * gunlevel);
-            document.getElementById('value').innerHTML = "Money: $" + value;
             if (zombieAlive === true){
+                value = value + (50 * gunlevel);
+                document.getElementById('value').innerHTML = "Money: $" + value;
                 zombieHealth = zombieHealth - electricDamage;
+                document.getElementById('hitmarker').style.display="block";
+            setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
                 };
         };
         ammo = -1;
@@ -316,17 +350,21 @@ document.getElementById('reload').onclick = function() {
   else if (speedreload === true){
     if (reloading === false && fullmag === false){
         if (electricreload === true && ammo >= 1){
-            value = value + (50 * gunlevel);
-            document.getElementById('value').innerHTML = "Money: $" + value;
             if (zombieAlive === true){
-                zombieHealth = (zombieHealth - (electricDamage/2));
+                value = value + (50 * gunlevel);
+                document.getElementById('value').innerHTML = "Money: $" + value;
+                zombieHealth = zombieHealth - electricDamage;
+                document.getElementById('hitmarker').style.display="block";
+            setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
                 };
         }
         else if (electricreload === true && ammo === 0){
-            value = value + (50 * gunlevel);
-            document.getElementById('value').innerHTML = "Money: $" + value;
             if (zombieAlive === true){
+                value = value + (50 * gunlevel);
+                document.getElementById('value').innerHTML = "Money: $" + value;
                 zombieHealth = zombieHealth - electricDamage;
+                document.getElementById('hitmarker').style.display="block";
+            setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
                 };
 
         };
@@ -355,6 +393,8 @@ document.getElementById('reload').onclick = function() {
         };
     };
   }
+  zombieHealthPercent = (8*(zombieHealth/zombieHealthMax));
+    document.getElementById("zHPbar").style.width = zombieHealthPercent+"%";
 }
 
 function activateTurret() {
@@ -367,6 +407,8 @@ function activateTurret() {
         setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 100);
         };
         document.getElementById('value').innerHTML = "Money: $" + value;
+        zombieHealthPercent = (8*(zombieHealth/zombieHealthMax));
+    document.getElementById("zHPbar").style.width = zombieHealthPercent+"%";
 
         audio4 = document.getElementById("audio4");
         audio4.play();

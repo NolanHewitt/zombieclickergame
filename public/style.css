@@ -215,6 +215,7 @@
 
 #hudwrapper {
     display: block;
+    position: absolute;
     height: 15%;
     margin-top: 45%;
     z-index: 1;

@@ -733,6 +733,7 @@ document.getElementById('turretMenu').onclick = function() {
             document.getElementById("turretROF").style.display="block";
             document.getElementById('turretWrapper').classList.add("animated");
     document.getElementById('turretMenu').style.display="none";
+    document.getElementById('hudwrapper').style.marginTop = "40.45%";
 
     setTimeout(function(){ 
         document.getElementById('turretWrapper').style.marginLeft="14.75%";

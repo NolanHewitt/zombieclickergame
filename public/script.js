@@ -1,4 +1,4 @@
-let value = 5000000;
+let value = 500;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;

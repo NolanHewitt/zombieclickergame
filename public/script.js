@@ -1,4 +1,4 @@
-let value = 500;
+let value = 5000000;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
@@ -387,6 +387,7 @@ document.getElementById('firstupgrade').onclick = function() {
     value = value-750;
     document.getElementById('value').innerHTML = "Money: $" + value;
     document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
+    document.getElementById('perkDescription1').innerHTML = "Damage+" +  "<br />" + "Magazine: 6";
     }
 };
 
@@ -448,6 +449,8 @@ document.getElementById('seventhupgrade').onclick = function() {
 
 function hideDesc() {
     document.getElementById("perkdescriptionWrapper").style.display = "none";
+    document.getElementById("perkdescriptionWrapper").style.height = "4%";
+    document.getElementById("perkdescriptionWrapper").style.width = "25%";
     document.getElementById("perkDescription1").style.display = "none";
     document.getElementById("perkDescription2").style.display = "none";
     document.getElementById("perkDescription3").style.display = "none";
@@ -457,39 +460,53 @@ function hideDesc() {
     document.getElementById("perkDescription7").style.display = "none";
 };
 
+function showGunDesc1() {
+    document.getElementById("perkdescriptionWrapper").style.display = "block";
+    document.getElementById("perkdescriptionWrapper").style.height = "5.5%";
+    document.getElementById("perkdescriptionWrapper").style.width = "6.5%";
+    document.getElementById("perkDescription1").style.display = "block";
+};
+
 function showDesc1() {
     document.getElementById("perkdescriptionWrapper").style.display = "block";
     document.getElementById("perkDescription1").style.display = "block";
+    document.getElementById("perkdescriptionWrapper").style.width = "15%";
 };
 
 function showDesc2() {
     document.getElementById("perkdescriptionWrapper").style.display = "block";
     document.getElementById("perkDescription2").style.display = "block";
+    document.getElementById("perkdescriptionWrapper").style.width = "19%";
 };
 
 function showDesc3() {
     document.getElementById("perkdescriptionWrapper").style.display = "block";
     document.getElementById("perkDescription3").style.display = "block";
+    document.getElementById("perkdescriptionWrapper").style.width = "18.5%";
 };
 
 function showDesc4() {
     document.getElementById("perkdescriptionWrapper").style.display = "block";
     document.getElementById("perkDescription4").style.display = "block";
+    document.getElementById("perkdescriptionWrapper").style.width = "19.5%";
 };
 
 function showDesc5() {
     document.getElementById("perkdescriptionWrapper").style.display = "block";
     document.getElementById("perkDescription5").style.display = "block";
+    document.getElementById("perkdescriptionWrapper").style.width = "20.5%";
 };
 
 function showDesc6() {
     document.getElementById("perkdescriptionWrapper").style.display = "block";
     document.getElementById("perkDescription6").style.display = "block";
+    document.getElementById("perkdescriptionWrapper").style.width = "24.5%";
 };
 
 function showDesc7() {
     document.getElementById("perkdescriptionWrapper").style.display = "block";
     document.getElementById("perkDescription7").style.display = "block";
+    document.getElementById("perkdescriptionWrapper").style.width = "18.5%";
 };
 
 document.getElementById('buygun').onclick = function() {
@@ -504,6 +521,7 @@ document.getElementById('buygun').onclick = function() {
     electricDamage = 100;
     headshotMultiplier = 2.0;
     document.getElementById('buygun').innerHTML = "Buy RW1" +  "<br />" + "1250$";
+    document.getElementById('perkDescription1').innerHTML = "Damage++" +  "<br />" + "Magazine: 1";
     document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
     document.getElementById('value').innerHTML = "Money: $" + value;
     document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
@@ -523,6 +541,7 @@ document.getElementById('buygun').onclick = function() {
         electricDamage = 20;
         headshotMultiplier = 1.75;
         document.getElementById('buygun').innerHTML = "Buy Spas12" +  "<br />" + "2000$";
+        document.getElementById('perkDescription1').innerHTML = "Damage+" +  "<br />" + "Magazine: 8";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
@@ -542,6 +561,7 @@ document.getElementById('buygun').onclick = function() {
         electricDamage = 150;
         headshotMultiplier = 1.0;
         document.getElementById('buygun').innerHTML = "Buy 1887" +  "<br />" + "3000$";
+        document.getElementById('perkDescription1').innerHTML = "Damage+" +  "<br />" + "Magazine: 7";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
@@ -562,6 +582,7 @@ document.getElementById('buygun').onclick = function() {
         electricDamage = 160;
         headshotMultiplier = 1.0;
         document.getElementById('buygun').innerHTML = "Buy MORS" +  "<br />" + "6000$";
+        document.getElementById('perkDescription1').innerHTML = "Damage+++" +  "<br />" + "Magazine: 1";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
@@ -582,6 +603,7 @@ document.getElementById('buygun').onclick = function() {
         electricDamage = 100;
         headshotMultiplier = 2.5;
         document.getElementById('buygun').innerHTML = "Buy Barrett" +  "<br />" + "9010$";
+        document.getElementById('perkDescription1').innerHTML = "Damage-" +  "<br />" + "Magazine: 5";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
@@ -601,6 +623,7 @@ document.getElementById('buygun').onclick = function() {
         gunDamage = 300;
         electricDamage = 200;
         document.getElementById('buygun').innerHTML = "Buy Ray-Gun" +  "<br />" + "20000$";
+        document.getElementById('perkDescription1').innerHTML = "Damage++" +  "<br />" + "Magazine: 20";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
@@ -621,6 +644,7 @@ document.getElementById('buygun').onclick = function() {
         electricDamage = 500;
         headshotMultiplier = 2.0;
         document.getElementById('buygun').innerHTML = "Upgrade Ray-Gun" +  "<br />" + "5000$";
+        document.getElementById('perkDescription1').innerHTML = "Damage+" +  "<br />" + "Magazine: 40";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
@@ -641,6 +665,7 @@ document.getElementById('buygun').onclick = function() {
         electricDamage = 1500;
         headshotMultiplier = 2.0;
         document.getElementById('buygun').innerHTML = "Buy Thundergun" +  "<br />" + "50000$";
+        document.getElementById('perkDescription1').innerHTML = "Damage+++" +  "<br />" + "Magazine: 2";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
@@ -661,6 +686,7 @@ document.getElementById('buygun').onclick = function() {
         electricDamage = 500;
         headshotMultiplier = 1.25;
         document.getElementById('buygun').innerHTML = "Upgrade Thundergun" +  "<br />" + "5000$";
+        document.getElementById('perkDescription1').innerHTML = "Damage+" +  "<br />" + "Magazine: 4";
         document.getElementById("buygun").style.marginLeft="1%";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;

@@ -118,7 +118,7 @@ document.getElementById('click').onclick = function() {
     let h = Math.random();
     console.log ("d: " + d);
     console.log ("h: " + h);
-if (d < hitChance && zombieAlive === true && ammo > 0){
+if (d < hitChance && zombieAlive === true && ammo >= 0){
     health = health-70
     document.getElementById('health').innerHTML = "HP: " + health;
     document.getElementById('damagetook').style.display = 'block';

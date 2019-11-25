@@ -1,4 +1,4 @@
-let value = 5000000;
+let value = 500
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
@@ -10,6 +10,8 @@ let zombieHealthPercent;
 let zombieAlive = true;
 let zombiesKilled = 0;
 let gunDamage = 10;
+let d;
+let h;
 let turretDamage = 100;
 let electricDamage = 50;
 let maxhealth = 100;
@@ -85,16 +87,27 @@ setInterval(function(){
     if (zombieHealth <= 0 && zombieAlive === true){
         zombieAlive = false;
         zombiesKilled = zombiesKilled + 1;
-        console.log("Z Killed: " + zombiesKilled);
+        document.getElementById('zKilled').innerHTML = "Zombies Killed: " + zombiesKilled;
         document.getElementById('zombie').style.display = "none";
         document.getElementById('zHPbar').style.display = "none";
         document.getElementById('zHPbar').style.width = "8%";
         zombieHealth = Math.floor(100 * ((1.15)**zombiesKilled));
         zombieHealthMax = Math.floor(100 * ((1.15)**zombiesKilled));
-        console.log("Z HP: " + zombieHealth);
-        value=value+(increaser * 6);
-        document.getElementById('value').innerHTML = "Money: $" + value;
-        document.getElementById('zKilled').innerHTML = "Zombies Killed: " + zombiesKilled;
+    
+        if (gunlevel === 4 || gunlevel === 5){
+                value=value+(increaser * 6);
+                document.getElementById('value').innerHTML = "Money: $" + value;
+        }
+        else {
+            if (h <= headshotChance){
+                value=value+(increaser * 10);
+                document.getElementById('value').innerHTML = "Money: $" + value;
+            }
+            else {
+                value=value+(increaser * 6);
+                document.getElementById('value').innerHTML = "Money: $" + value;
+            };
+        }
 
         setTimeout(function(){
             document.getElementById('zombie').style.display = 'block';
@@ -114,8 +127,8 @@ function removedamagemessage(){
 
 document.getElementById('click').onclick = function() {
 //Trying to fire the gun causes the zombie to damage you 10% of the time.
-    let d = Math.random();
-    let h = Math.random();
+    d = Math.random();
+    h = Math.random();
     console.log ("d: " + d);
     console.log ("h: " + h);
 if (d < hitChance && zombieAlive === true && ammo >= 0){

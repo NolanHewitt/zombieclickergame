@@ -1,4 +1,4 @@
-let value = 500
+let value = 50000;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
@@ -12,6 +12,7 @@ let zombiesKilled = 0;
 let gunDamage = 10;
 let d;
 let h;
+let p;
 let turretDamage = 100;
 let electricDamage = 50;
 let maxhealth = 100;
@@ -25,6 +26,8 @@ let electricreload = false;
 let speedreload = false;
 let juggernaut = false;
 let turret = false;
+let turretShot = false;
+let gunShot = true;
 let turretAuto;
 let turretIncreaser = 100;
 let audio5 = document.getElementById("audio5");
@@ -93,21 +96,26 @@ setInterval(function(){
         document.getElementById('zHPbar').style.width = "8%";
         zombieHealth = Math.floor(100 * ((1.15)**zombiesKilled));
         zombieHealthMax = Math.floor(100 * ((1.15)**zombiesKilled));
-    
+    if (gunShot === true){
         if (gunlevel === 4 || gunlevel === 5){
-                value=value+(increaser * 6);
+                value=value+(increaser * 3);
                 document.getElementById('value').innerHTML = "Money: $" + value;
         }
         else {
             if (h <= headshotChance){
-                value=value+(increaser * 10);
+                value=value+(increaser * 7);
                 document.getElementById('value').innerHTML = "Money: $" + value;
             }
             else {
-                value=value+(increaser * 6);
+                value=value+(increaser * 3);
                 document.getElementById('value').innerHTML = "Money: $" + value;
             };
         }
+    }
+    else if (turretShot === true){
+        value=value+(turretIncreaser * 3);
+                document.getElementById('value').innerHTML = "Money: $" + value;
+    }
 
         setTimeout(function(){
             document.getElementById('zombie').style.display = 'block';
@@ -129,8 +137,7 @@ document.getElementById('click').onclick = function() {
 //Trying to fire the gun causes the zombie to damage you 10% of the time.
     d = Math.random();
     h = Math.random();
-    console.log ("d: " + d);
-    console.log ("h: " + h);
+    p = (Math.floor(Math.random() * 8) + 1);
 if (d < hitChance && zombieAlive === true && ammo >= 0){
     health = health-70
     document.getElementById('health').innerHTML = "HP: " + health;
@@ -142,15 +149,26 @@ if (ammo > 1){
     ammo = ammo-1;
     fullmag=false;
     document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+    gunShot = true;
+    turretShot = false;
 
     if (zombieAlive === true){
+        if (gunlevel === 4 || gunlevel === 5){
+            value=value+(increaser*p);
+        }
+        else {
             value=value+increaser;
+        };
+
+    //Shotgun Damage
     if (gunlevel === 4 || gunlevel === 5){
-        zombieHealth = zombieHealth - (gunDamage*(Math.floor(Math.random() * 8) + 1));
+        zombieHealth = zombieHealth - (gunDamage*p);
     console.log("Z hp is " + zombieHealth);
     document.getElementById('hitmarker').style.display="block";
     setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
     }
+
+    //Other Damage
     else {
         if (h <= headshotChance) {
             zombieHealth = (zombieHealth - (gunDamage * headshotMultiplier));
@@ -164,12 +182,11 @@ if (ammo > 1){
     setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
             console.log("bodyshot");
         };
-
-    console.log("Z hp is " + zombieHealth);
     };
     document.getElementById('value').innerHTML = "Money: $" + value;
     };
-
+       
+       //Shooting audio
        audio = document.getElementById("audio");
        audio.play();
        if (audio.currentTime > 0) {
@@ -177,22 +194,34 @@ if (ammo > 1){
         audio.currentTime = 0
         audio.play();
     };
+    //Changeing Zombie Health Bar
     zombieHealthPercent = (8*(zombieHealth/zombieHealthMax));
     document.getElementById("zHPbar").style.width = zombieHealthPercent+"%";
   }
+  //Shooting for the final shot in the magazine
   else if (ammo === 1){
     ammo = ammo-1;
     fullmag=false;
     document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
+    gunShot = true;
+    turretShot = false;
 
     if (zombieAlive === true){
-        value=value+increaser;
         if (gunlevel === 4 || gunlevel === 5){
-            zombieHealth = zombieHealth - (gunDamage*(Math.floor(Math.random() * 8) + 1));
+            value=value+(increaser*p);
+        }
+        else {
+            value=value+increaser;
+        };
+
+        //Shotgun Damage
+        if (gunlevel === 4 || gunlevel === 5){
+            zombieHealth = zombieHealth - (gunDamage*p);
         console.log("Z hp is " + zombieHealth);
         document.getElementById('hitmarker').style.display="block";
     setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
         }
+        //Other Damage
         else {
             if (h <= headshotChance) {
                 zombieHealth = (zombieHealth - (gunDamage * headshotMultiplier));
@@ -206,12 +235,10 @@ if (ammo > 1){
         setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 200);
                 console.log("bodyshot");
             };
-    
-        console.log("Z hp is " + zombieHealth);
         };
     document.getElementById('value').innerHTML = "Money: $" + value;
     };
-
+       //Shooting Audio
        audio = document.getElementById("audio");
        audio.play();
        if (audio.currentTime > 0) {
@@ -416,6 +443,8 @@ function activateTurret() {
         if (zombieAlive === true){
         value = value + turretIncreaser;
         zombieHealth = zombieHealth - turretDamage;
+        gunShot = false;
+    turretShot = true;
         document.getElementById('hitmarker').style.display="block";
         setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 100);
         };
@@ -568,7 +597,7 @@ document.getElementById('buygun').onclick = function() {
   if (gunlevel === 1){
     if (value >= 1000){
     value = value-1000;
-    increaser = increaser+30;
+    increaser = increaser+20;
     ammo = 6;
     magazine = 6;
     gunlevel = 2;
@@ -588,7 +617,7 @@ document.getElementById('buygun').onclick = function() {
   else if (gunlevel === 2){
     if (value >= 1250){
         value = value-1250;
-        increaser = increaser+70;
+        increaser = increaser+60;
         ammo = 1;
         magazine = 1;
         gunlevel = 3;
@@ -608,7 +637,7 @@ document.getElementById('buygun').onclick = function() {
   else if (gunlevel === 3){
     if (value >= 2000){
         value = value-2000;
-        increaser = increaser-40;
+        increaser = increaser-70;
         ammo = 8;
         magazine = 8;
         gunlevel = 4;
@@ -629,7 +658,7 @@ document.getElementById('buygun').onclick = function() {
   else if (gunlevel === 4){
     if (value >= 3000){
         value = value-3000;
-        increaser = increaser+20;
+        increaser = increaser+10;
         ammo = 7;
         magazine = 7;
         gunlevel = 5;
@@ -650,7 +679,7 @@ document.getElementById('buygun').onclick = function() {
   else if (gunlevel === 5){
     if (value >= 6000){
         value = value-6000;
-        increaser = increaser+600;
+        increaser = increaser+360;
         ammo = 1;
         magazine = 1;
         gunlevel = 6;
@@ -671,7 +700,7 @@ document.getElementById('buygun').onclick = function() {
   else if (gunlevel === 6){
     if (value >= 9010){
         value = value-9010;
-        increaser = increaser-200;
+        increaser = increaser-100;
         ammo = 5;
         magazine = 5;
         gunlevel = 7;
@@ -691,7 +720,7 @@ document.getElementById('buygun').onclick = function() {
   else if (gunlevel === 7){
     if (value >= 20000){
         value = value-20000;
-        increaser = increaser+0;
+        increaser = increaser+200;
         ammo = 20;
         magazine = 20;
         gunlevel = 8;

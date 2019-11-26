@@ -152,7 +152,7 @@ if (ammo > 1){
 
     if (zombieAlive === true){
         gunShot = true;
-    turretShot = false;
+        turretShot = false;
         if (gunlevel === 4 || gunlevel === 5){
             value=value+(increaser*p);
         }
@@ -206,7 +206,7 @@ if (ammo > 1){
 
     if (zombieAlive === true){
         gunShot = true;
-    turretShot = false;
+        turretShot = false;
         if (gunlevel === 4 || gunlevel === 5){
             value=value+(increaser*p);
         }
@@ -254,6 +254,8 @@ if (ammo > 1){
 
     if (electricreload === true){
         if (zombieAlive === true){
+            gunShot = true;
+    turretShot = false;
         value = value + (50 * gunlevel);
         document.getElementById('value').innerHTML = "Money: $" + value;
         zombieHealth = zombieHealth - electricDamage;
@@ -294,6 +296,8 @@ if (ammo > 1){
 
     if (electricreload === true){
         if (zombieAlive === true){
+            gunShot = true;
+            turretShot = false;
             value = value + (50 * gunlevel);
             document.getElementById('value').innerHTML = "Money: $" + value;
             zombieHealth = zombieHealth - electricDamage;
@@ -346,6 +350,8 @@ document.getElementById('reload').onclick = function() {
     if (reloading === false && fullmag === false){
         if (electricreload === true && ammo >= 1){
             if (zombieAlive === true){
+                gunShot = true;
+                turretShot = false;
                 value = value + (50 * gunlevel);
                 document.getElementById('value').innerHTML = "Money: $" + value;
                 zombieHealth = zombieHealth - electricDamage;
@@ -355,6 +361,8 @@ document.getElementById('reload').onclick = function() {
         }
         else if (electricreload === true && ammo === 0){
             if (zombieAlive === true){
+                gunShot = true;
+                turretShot = false;
                 value = value + (50 * gunlevel);
                 document.getElementById('value').innerHTML = "Money: $" + value;
                 zombieHealth = zombieHealth - electricDamage;
@@ -391,6 +399,8 @@ document.getElementById('reload').onclick = function() {
     if (reloading === false && fullmag === false){
         if (electricreload === true && ammo >= 1){
             if (zombieAlive === true){
+                gunShot = true;
+                turretShot = false;
                 value = value + (50 * gunlevel);
                 document.getElementById('value').innerHTML = "Money: $" + value;
                 zombieHealth = zombieHealth - electricDamage;
@@ -400,6 +410,8 @@ document.getElementById('reload').onclick = function() {
         }
         else if (electricreload === true && ammo === 0){
             if (zombieAlive === true){
+                gunShot = true;
+                turretShot = false;
                 value = value + (50 * gunlevel);
                 document.getElementById('value').innerHTML = "Money: $" + value;
                 zombieHealth = zombieHealth - electricDamage;

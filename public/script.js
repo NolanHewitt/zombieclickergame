@@ -203,10 +203,10 @@ if (ammo > 1){
     ammo = ammo-1;
     fullmag=false;
     document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
-    gunShot = true;
-    turretShot = false;
 
     if (zombieAlive === true){
+        gunShot = true;
+    turretShot = false;
         if (gunlevel === 4 || gunlevel === 5){
             value=value+(increaser*p);
         }

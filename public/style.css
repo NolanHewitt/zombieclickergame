@@ -293,6 +293,15 @@
   cursor:pointer;
 }
 
+#turretFlash {
+  position: absolute;
+  display: none;
+  width: 20%;
+  margin-left: 57%;
+  margin-top: 15.35%;
+  z-index: 1;
+}
+
 #turretWrapper {
   position: absolute;
   display: block;

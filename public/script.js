@@ -1,4 +1,4 @@
-let value = 500000;
+let value = 500;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
@@ -31,6 +31,7 @@ let gunShot = true;
 let turretAuto;
 let turretIncreaser = 100;
 let flash = "../public/images/gunshot2.gif";
+let turretFlash = "../public/images/gunshot2.gif";
 let audio5 = document.getElementById("audio5");
 let audio4 = document.getElementById("audio4");
 let audio3 = document.getElementById("audio3");
@@ -470,8 +471,7 @@ document.getElementById('reload').onclick = function() {
 }
 
 function activateTurret() {
-    turretAuto = setInterval(function()
-    {
+    turretAuto = setInterval(function(){
         if (zombieAlive === true){
         value = value + turretIncreaser;
         zombieHealth = zombieHealth - turretDamage;
@@ -480,6 +480,15 @@ function activateTurret() {
         document.getElementById('hitmarker').style.display="block";
         setTimeout(function(){ document.getElementById('hitmarker').style.display="none"; }, 100);
         };
+
+        document.getElementById("turretFlash").src= turretFlash;
+    document.getElementById("turretFlash").style.display= "block";
+
+    setTimeout(function(){
+        document.getElementById("turretFlash").style.display= "none";
+        document.getElementById("turretFlash").src="junk";
+    },100);
+
         document.getElementById('value').innerHTML = "Money: $" + value;
         zombieHealthPercent = (8*(zombieHealth/zombieHealthMax));
     document.getElementById("zHPbar").style.width = zombieHealthPercent+"%";

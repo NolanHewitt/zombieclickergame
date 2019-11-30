@@ -1,4 +1,4 @@
-let value = 500;
+let value = 500000;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
@@ -30,6 +30,7 @@ let turretShot = false;
 let gunShot = true;
 let turretAuto;
 let turretIncreaser = 100;
+let flash = "../public/images/gunshot2.gif";
 let audio5 = document.getElementById("audio5");
 let audio4 = document.getElementById("audio4");
 let audio3 = document.getElementById("audio3");
@@ -134,16 +135,35 @@ function removedamagemessage(){
 }
 
 document.getElementById('click').onclick = function() {
-//Trying to fire the gun causes the zombie to damage you 10% of the time.
+    //d is used to determine if the zombie hits you
     d = Math.random();
+    //h decides if you gey a headshot
     h = Math.random();
+    //p determines how many pellets hit between 1 and 8 for shotgun weapons
     p = (Math.floor(Math.random() * 8) + 1);
+
+    //Getting hit by zombie mechanics
+    //Trying to fire the gun wiht ammo causes the zombie to damage you 10% of the time.
 if (d < hitChance && zombieAlive === true && ammo >= 0){
     health = health-70
     document.getElementById('health').innerHTML = "HP: " + health;
     document.getElementById('damagetook').style.display = 'block';
     removedamagemessage();
 };
+
+//Gun flash mechanics
+if (ammo >= 1){
+    document.getElementById("gunFlash").src= flash;
+    document.getElementById("gunFlash").style.display= "block";
+
+    setTimeout(function(){
+        document.getElementById("gunFlash").style.display= "none";
+        document.getElementById("gunFlash").src="junk";
+    },100);
+
+}
+
+
 //Shooting mechanics
 if (ammo > 1){
     ammo = ammo-1;
@@ -623,6 +643,9 @@ document.getElementById('buygun').onclick = function() {
     document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
     document.getElementById("gun").src="../public/images/revolver.png";
     document.getElementById("gun").style.marginLeft="75%";
+    document.getElementById("gunFlash").style.marginLeft="57%";
+    document.getElementById("gunFlash").style.marginTop="-4.75%";
+    document.getElementById("gunFlash").style.width="22.5%";
     document.getElementById("audio").src="../public/sounds/revolver.mp3";
     }
   }
@@ -643,6 +666,9 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
         document.getElementById("gun").src="../public/images/rw1.png";
         document.getElementById("gun").style.marginLeft="75%";
+        document.getElementById("gunFlash").style.width="25%";
+        document.getElementById("gunFlash").style.marginLeft="56.75%";
+        document.getElementById("gunFlash").style.marginTop="-6%";
         document.getElementById("audio").src="../public/sounds/revolver.mp3";
         }
   }
@@ -662,7 +688,10 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
         document.getElementById("gun").src="../public/images/spas.png";
-        document.getElementById("gun").style.marginLeft="25%";
+        document.getElementById("gun").style.marginLeft="60%";
+        document.getElementById("gunFlash").style.width="20%";
+        document.getElementById("gunFlash").style.marginLeft="59%";
+        document.getElementById("gunFlash").style.marginTop="-4%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
         document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
         }
@@ -684,6 +713,8 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
         document.getElementById("gun").src="../public/images/1887.png";
         document.getElementById("gun").style.marginLeft="25%";
+        document.getElementById("gunFlash").style.marginLeft="54%";
+        document.getElementById("gunFlash").style.marginTop="-3.5%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
         document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
         }
@@ -705,6 +736,9 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
         document.getElementById("gun").src="../public/images/mors.png";
         document.getElementById("gun").style.marginLeft="75%";
+        document.getElementById("gunFlash").style.width="25%";
+        document.getElementById("gunFlash").style.marginLeft="60.25%";
+        document.getElementById("gunFlash").style.marginTop="-4.5%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
         document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
         }
@@ -725,6 +759,8 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
         document.getElementById("gun").src="../public/images/barrett.png";
         document.getElementById("gun").style.marginLeft="25%";
+        document.getElementById("gunFlash").style.marginLeft="53.5%";
+        document.getElementById("gunFlash").style.marginTop="-5.75%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
         document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
         }
@@ -746,6 +782,9 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
         document.getElementById("gun").src="../public/images/raygun.png";
         document.getElementById("gun").style.marginLeft="25%";
+        flash = "../public/images/raygunFlash.gif";
+        document.getElementById("gunFlash").style.marginLeft="47.5%";
+        document.getElementById("gunFlash").style.marginTop="-0.75%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
         document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
         }
@@ -767,6 +806,8 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
         document.getElementById("gun").src="../public/images/raygunpack.png";
         document.getElementById("gun").style.marginLeft="25%";
+        document.getElementById("gunFlash").style.marginLeft="48.6%";
+        document.getElementById("gunFlash").style.marginTop="0.75%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
         document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
         }
@@ -789,6 +830,7 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;
         document.getElementById("gun").src="../public/images/thundergun.png";
         document.getElementById("gun").style.marginLeft="25%";
+        flash = "findathunderguneffectandputithere";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
         document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
         }

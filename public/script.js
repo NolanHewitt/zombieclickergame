@@ -833,7 +833,7 @@ document.getElementById('buygun').onclick = function() {
         headshotMultiplier = 1.25;
         document.getElementById('buygun').innerHTML = "Upgrade Thundergun" +  "<br />" + "5000$";
         document.getElementById('perkDescription1').innerHTML = "Damage+" +  "<br />" + "Magazine: 4";
-        document.getElementById("buygun").style.marginLeft="1%";
+        //document.getElementById("buygun").style.marginLeft="1%";
         document.getElementById('ammo').innerHTML = "Ammo: " + ammo;
         document.getElementById('value').innerHTML = "Money: $" + value;
         document.getElementById('increaser').innerHTML = "Click Value = " + increaser;

@@ -1,2 +1,2 @@
 # zombieclickergame
-https://github.com/NolanHewitt/zombieclickergame/views/index.html
+https://nolanhewitt.github.io/zombieclickergame/views/index.html

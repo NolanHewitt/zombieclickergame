@@ -1,4 +1,4 @@
-let value = 500;
+let value = 500000;
 let increaser = 10;
 let ammo = 8;
 let magazine = 8;
@@ -144,8 +144,8 @@ document.getElementById('click').onclick = function() {
     p = (Math.floor(Math.random() * 8) + 1);
 
     //Getting hit by zombie mechanics
-    //Trying to fire the gun wiht ammo causes the zombie to damage you 10% of the time.
-if (d < hitChance && zombieAlive === true && ammo >= 0){
+    //Trying to fire the gun with ammo causes the zombie to damage you 10% of the time.
+if (d < hitChance && zombieAlive === true && ammo > 0){
     health = health-70
     document.getElementById('health').innerHTML = "HP: " + health;
     document.getElementById('damagetook').style.display = 'block';
@@ -702,7 +702,7 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById("gunFlash").style.marginLeft="59%";
         document.getElementById("gunFlash").style.marginTop="-4%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
-        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreloadSlow.mp3";
         }
   }
   else if (gunlevel === 4){
@@ -725,7 +725,7 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById("gunFlash").style.marginLeft="54%";
         document.getElementById("gunFlash").style.marginTop="-3.5%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
-        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreloadSlow.mp3";
         }
   }
   else if (gunlevel === 5){
@@ -749,7 +749,7 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById("gunFlash").style.marginLeft="60.25%";
         document.getElementById("gunFlash").style.marginTop="-4.5%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
-        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreloadSlow.mp3";
         }
   }
   else if (gunlevel === 6){
@@ -771,7 +771,7 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById("gunFlash").style.marginLeft="53.5%";
         document.getElementById("gunFlash").style.marginTop="-5.75%";
         document.getElementById("audio").src="../public/sounds/spas.mp3";
-        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreloadSlow.mp3";
         }
   }
   else if (gunlevel === 7){
@@ -794,8 +794,8 @@ document.getElementById('buygun').onclick = function() {
         flash = "../public/images/raygunFlash.gif";
         document.getElementById("gunFlash").style.marginLeft="47.5%";
         document.getElementById("gunFlash").style.marginTop="-0.75%";
-        document.getElementById("audio").src="../public/sounds/spas.mp3";
-        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        document.getElementById("audio").src="../public/sounds/raygunshoot.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreloadSlow.mp3";
         }
   }
   else if (gunlevel === 8){
@@ -817,8 +817,8 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById("gun").style.marginLeft="25%";
         document.getElementById("gunFlash").style.marginLeft="48.6%";
         document.getElementById("gunFlash").style.marginTop="0.75%";
-        document.getElementById("audio").src="../public/sounds/spas.mp3";
-        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        document.getElementById("audio").src="../public/sounds/raygunshoot.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreloadSlow.mp3";
         }
   }
   else if (gunlevel === 9){
@@ -840,8 +840,8 @@ document.getElementById('buygun').onclick = function() {
         document.getElementById("gun").src="../public/images/thundergun.png";
         document.getElementById("gun").style.marginLeft="25%";
         flash = "findathunderguneffectandputithere";
-        document.getElementById("audio").src="../public/sounds/spas.mp3";
-        document.getElementById("audio3").src="../public/sounds/spasreload.mp3";
+        document.getElementById("audio").src="../public/sounds/raygunshoot.mp3";
+        document.getElementById("audio3").src="../public/sounds/spasreloadSlow.mp3";
         }
   }
   else if (gunlevel === 10){

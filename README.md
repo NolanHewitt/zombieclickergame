@@ -1,2 +1,2 @@
 # zombieclickergame
-https://zombieclickergame.herokuapp.com/
+https://github.com/NolanHewitt/zombieclickergame/views/index.html

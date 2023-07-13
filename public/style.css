@@ -269,10 +269,10 @@
   }
 
   #buygun {
-    display:none;
+    display:block;
     width: 5%, 10%;
     border: 3px solid blue;
-    margin-left: 2%;
+    margin-left: 40%;
     margin-top: 0%;
     position: absolute;
     z-index: 3;
